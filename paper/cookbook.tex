@@ -1,12 +1,12 @@
-\documentclass[oneside]{book}
+\documentclass[oneside]{ctexbook}
 \usepackage{ifthen}
 \usepackage{lipsum} % for generating dummy text
 \usepackage{xparse}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{placeins}
-\usepackage[T1]{fontenc}
 \usepackage[]{hyperref}
 \usepackage{import}
 \usepackage{graphicx}
@@ -70,7 +70,7 @@
   { }     % Space after theorem head
   {}      % Theorem head spec
 \theoremstyle{normalstyle}
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{练习}
 
 \newcommand{\smat}[1]{\left[\begin{smallmatrix}#1\end{smallmatrix}\right]}
 \newcommand{\svec}[1]{[\begin{smallmatrix}#1\end{smallmatrix}]}
@@ -84,7 +84,7 @@
 \newcommand{\eps}{\varepsilon}
 
 
-\title{The Tensor Cookbook}
+\title{张量手册}
 \author{Thomas Dybdahl Ahle}
 \begin{document}
 

@@ -1,64 +1,64 @@
 
-\chapter{Introduction}
-\paragraph{What is this?}
-These pages are a guide to tensors, using the visual language of ``tensor diagrams''.
-For illustrating the generality of the approach, I've tried to closely follow the legendary ``Matrix Cookbook''.
-As such, most of the presentation is a collection of facts (identities, approximations, inequalities, relations, ...) about tensors and matters relating to them.
-You won't find many results not in the original cookbook, but hopefully the diagrams will give you a new way to understand and appreciate them.
+\chapter{引言}
+\paragraph{这是什么？}
+这些页面是一本张量导览，使用“张量图”的视觉语言。
+为了展示这种方法的普适性，我尽量紧跟传奇的《Matrix Cookbook》。
+因此，正文大多是关于张量及其相关内容的一组事实（恒等式、近似、不等式、关系，等等）。
+你不会在这里看到太多原始手册之外的结果，但希望这些图示能为你提供一种新的理解和欣赏方式。
 
-\paragraph{It's ongoing:}
-The Matrix Cookbook is a long book, and not all the sections are equally amenable to diagrams.
-Hence I've opted to skip certain sections and shorten others.
-Perhaps in the future, I, or others, will expand the coverage further.
+\paragraph{这是一个持续进行的项目：}
+《Matrix Cookbook》是一本很长的书，并不是每一部分都同样适合用图示表达。
+因此我选择跳过某些部分，并缩短另一些部分。
+也许将来，我或其他人会进一步扩展覆盖范围。
 
-For example, while we cover all of the results on Expectation of Linear Combinations and Gaussian moments, we skip the section on general multi-variate distributions.
-I have also had to rearrange the material a bit, to avoid having to introduce all the notation up front.
+例如，我们覆盖了关于线性组合的期望和高斯矩的全部结果，但跳过了一般多元分布那一节。
+我也不得不稍微重排材料，以避免一开始就把所有记号都介绍完。
 
-\paragraph{Complex Matrices and Covariance}
-Tensor diagrams (or networks) are currently most often seen in Quantum Physics,
-but this is not a book for physicists.
-The Matrix Cookbook is a book for engineers, in particular in Machine Learning, where complex numbers are less common.
-Without complex numbers, we don't have to worry about complex conjugation, which simplifies transposes, and gets rid of the need for co- and contra-variant tensors.
+\paragraph{复数矩阵与协方差}
+张量图（或张量网络）目前最常见于量子物理，
+但这不是一本给物理学家的书。
+《Matrix Cookbook》是一本给工程师的书，尤其是机器学习领域，而在这里复数并不常见。
+没有复数，我们就不必担心复共轭，这简化了转置，也去掉了协变与逆变张量的需要。
 % In particular transposing a matrix now involves taking the conjugate (flipping the sign of the imaginary part), which introduces the need for co- and contra-variant tensors.
 % None of this complexity is present with standard real valued matrices, as is common e.g. in Machine Learning applications.
 %For simplicity I have decided to not include these complexities.
-If you are a physicist, you probably want a book on Tensor Analysis.
+如果你是物理学家，你大概更需要一本关于张量分析的书。
 
 \paragraph{Tensorgrad}
-The symbolic nature of tensor diagrams makes them well suited for symbolic computation.
+张量图的符号化特性使它们非常适合符号计算。
 
-\paragraph{Advantages of Tensor Diagram Notation:}
-Tensor diagram notation has many benefits compared to other notations:
+\paragraph{张量图记号的优点：}
+与其他记号相比，张量图记号有很多好处：
 
-Various operations, such as a trace, tensor product, or tensor contraction can be expressed simply without extra notation.
-Names of indices and tensors can often be omitted. This saves time and lightens the notation, and is especially useful for internal indices which exist mainly to be summed over.
-The order of the tensor resulting from a complicated network of contractions can be determined by inspection: it is just the number of unpaired lines. For example, a tensor network with all lines joined, no matter how complicated, must result in a scalar.
+诸如迹、张量积或张量缩并之类的操作，都可以不借助额外记号而直接表达。
+指标和张量的名称往往可以省略。这既省时又简化记号，尤其适合那些主要只是用于求和的内部指标。
+复杂缩并网络所得到张量的阶数可以一眼看出：它就是未配对连线的数量。比如，一个所有连线都接上的张量网络，无论多复杂，结果都必然是一个标量。
 
 
-\paragraph{Etymology}
-The term "tensor" is rooted in the Latin word tensio, meaning ``tension'' or ``stretching,'' derived from the verb tendere, which means ``to stretch'' or ``to extend.''
-It was first introduced in the context of mathematics in the mid-19th century by William Rowan Hamilton in his work on quaternions, where it referred to the magnitude of a quaternion.
-The modern usage of "tensor" was later established by Gregorio Ricci-Curbastro and Tullio Levi-Civita in their development of tensor calculus, a framework that generalizes the concept of scalars, vectors, and matrices to more complex, multidimensional entities.~\cite{tensor_etymology_russo, hamilton_tensor}.
+\paragraph{词源}
+“tensor” 一词源自拉丁语 tensio，意为“张力”或“伸展”，又来自动词 tendere，意为“拉伸”或“延展”。
+它最早在 19 世纪中叶由 William Rowan Hamilton 在四元数研究中引入数学语境，当时它指的是四元数的模长。
+后来 Gregorio Ricci-Curbastro 和 Tullio Levi-Civita 在发展张量微积分时确立了“tensor”的现代用法；这套框架把标量、向量和矩阵的概念推广到了更复杂的多维对象。~\cite{tensor_etymology_russo, hamilton_tensor}.
 
 
 \tableofcontents
 \clearpage
 
 
-\section{Tensor Diagrams}
-Tensor diagrams are simple graphs (or ``networks'') where
-nodes represent variables (e.g. vectors or matrices) and edges represent
-contractions (e.g. matrix multiplication or inner products.)
-The following table shows how some basic operations can be written with tensor diagrams:
+\section{张量图}
+张量图是简单的图（或“网络”），其中
+节点表示变量（例如向量或矩阵），边表示
+缩并（例如矩阵乘法或内积）。
+下表展示了一些基本操作如何用张量图写出：
 
 \newenvironment{compress}{
-  \renewcommand{\arraystretch}{0.6} % Set the array stretch
-  \setlength{\arraycolsep}{2pt}     % Set the column separation
+  \renewcommand{\arraystretch}{0.6} % 设置数组伸展
+  \setlength{\arraycolsep}{2pt}     % 设置列间距
   \vspace{.3em}
 }{
   \vspace{.3em}
-  \renewcommand{\arraystretch}{1}   % Reset to default after the environment
-  \setlength{\arraycolsep}{5pt}     % Reset to default column separation
+  \renewcommand{\arraystretch}{1}   % 环境结束后恢复默认值
+  \setlength{\arraycolsep}{5pt}     % 恢复默认列间距
 }
 
 \renewcommand{\arraystretch}{2}
@@ -66,7 +66,7 @@ The following table shows how some basic operations can be written with tensor d
 %\hspace{-1em}
 \vspace{.5em}
 \begin{tabular}[h]{lcccl}
-   Dot product
+   点积
    &
    \begin{tikzpicture}[baseline=(a0.base), inner sep=1pt]
       \node (a0) {$a$};
@@ -92,7 +92,7 @@ The following table shows how some basic operations can be written with tensor d
    &
    $=y$
    \\
-   Outer product
+   外积
    &
    \begin{tikzpicture}[baseline=(a0.base), inner sep=1pt]
       \node (a0) {$a$};
@@ -125,7 +125,7 @@ The following table shows how some basic operations can be written with tensor d
    \end{tikzpicture}}
    $
    \\
-   Matrix-Vector
+   矩阵-向量
    &
    \begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
       \node (A) {$A$};
@@ -162,7 +162,7 @@ The following table shows how some basic operations can be written with tensor d
    \end{tikzpicture}
    }$
    \\
-   Matrix-Matrix
+   矩阵-矩阵
    &
    \begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
       \node (A) {$A$};
@@ -203,19 +203,19 @@ The following table shows how some basic operations can be written with tensor d
 \end{tabular}
 \vspace{.5em}
 
-We think of vectors and matrices as tensors of order 1 and 2.
-The order corresponds to the number of dimensions in their $[\cdots]$ visualization above,
-e.g. a vector is a 1-dimensional list of numbers, while a matrix is a 2-dimensional grid of numbers.
-The order also determines the degree of the node representing the variable in the tensor graph.
+我们把向量和矩阵看作 1 阶和 2 阶张量。
+阶数对应于上面 $[\cdots]$ 可视化中的维数，
+例如，向量是一维的数字列表，而矩阵是二维的数字网格。
+阶数也决定了张量图中表示该变量的节点的度数。
 
-Diagram notation becomes more interesting when you have tensors of order 3 and higher.
-An order 3 tensor is a cube of numbers, or stack of matrices.
-E.g. we can write this as $T\in\R^{n\times m\times k}$, so $T_i\in\R^{m\times k}$ is a matrix for $i=1\dots n$.
-Of course we could slice $T$ along the other axes too, so $T_{:,j}\in\R^{n\times k}$ and $T_{:,:,\ell}\in\R^{n\times m}$ are matrices too.
+当我们处理 3 阶及更高阶张量时，图记号会变得更有意思。
+一个 3 阶张量可以看作一个数字立方体，或者一叠矩阵。
+例如，我们可以把它写成 $T\in\R^{n\times m\times k}$，于是对 $i=1\dots n$，$T_i\in\R^{m\times k}$ 是一个矩阵。
+当然，我们也可以沿其他轴切分 $T$，因此 $T_{:,j}\in\R^{n\times k}$ 和 $T_{:,:,\ell}\in\R^{n\times m}$ 也都是矩阵。
 
-A matrix having two outgoing edges means there are two ways you can multiply a vector onto it, either on the left: $x^T M$, or on the right: $Mx$.
-In graph notation we just write $x\!-\!M\!-$ and $-M\!-\!x$.
-An order 3 tensor has three edges, so we can multiply it with a vector in three ways:
+矩阵有两条伸出的边，意味着可以用两种方式让向量与它相乘：从左边乘，即 $x^T M$；或者从右边乘，即 $Mx$。
+在图记号中，我们只写作 $x\!-\!M\!-$ 和 $-M\!-\!x$。
+3 阶张量有三条边，因此可以用三种方式让它与一个向量相乘：
 \[
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$T$};
@@ -225,7 +225,7 @@ An order 3 tensor has three edges, so we can multiply it with a vector in three 
       \draw (T) -- ++(0,.35);
    \end{tikzpicture}
    \quad
-   \text{and}
+	   \text{和}
    \quad
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$T$};
@@ -235,7 +235,7 @@ An order 3 tensor has three edges, so we can multiply it with a vector in three 
       \draw (T) -- ++(0,.35);
    \end{tikzpicture}
    \quad
-   \text{and}
+	   \text{和}
    \quad
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$T$};
@@ -246,8 +246,8 @@ An order 3 tensor has three edges, so we can multiply it with a vector in three 
    \end{tikzpicture}
 \]
 %
-To be perfectly precise about what each one means, we should give the edges labels.
-For example we would write
+要完全精确地说明每一种写法的含义，我们应该给边加上标签。
+例如，我们会写成
 $
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$T$};
@@ -257,9 +257,8 @@ $
       \draw (T) -- ++(0,.3);
    \end{tikzpicture}
 $
-to specify the matrix $\sum_i T_i x_i$.
-However, often the edge in question will be clear from the context, which is part of
-what makes tensor diagram notation cleaner than, say, Einstein sum notation.
+来表示矩阵 $\sum_i T_i x_i$。
+不过，相关的边通常能从上下文中看出；这正是张量图记号比 Einstein 求和记号更清爽的原因之一。
 
 \[
    Y_{i,j} = \sum_{k,l,m,n,o} A_{i,k} B_{l,n,o} C_{j,k,l,m} D_{m,n} E_o
@@ -271,33 +270,33 @@ what makes tensor diagram notation cleaner than, say, Einstein sum notation.
    }}
 \]
 
-The \emph{key principle} of tensor diagrams is that \emph{edge contraction is associative}.
-This means you can contract any edge in any order you prefer.
-This can be seen from the sum representation above, which can be reordered to sum over $k,l,m,n$ in any order.
+张量图的\emph{核心原则}是：\emph{边缩并满足结合律}。
+这意味着你可以按任意喜欢的顺序缩并任意边。
+从上面的求和表示也能看出这一点，因为其中对 $k,l,m,n$ 的求和可以按任意顺序重排。
 
-The computational price for different contraction orders can be widely different.
-Unfortunately it's not computationally easy to find the optimal order.
-See section~\ref{sec:opt_contr} for algorithms to find the best contraction order, and approximate contraction methods.
+不同缩并顺序的计算代价可能相差很大。
+遗憾的是，寻找最优顺序在计算上并不容易。
+关于寻找最佳缩并顺序的算法以及近似缩并方法，见第~\ref{sec:opt_contr} 节。
 
-Note that tensor graphs are not always connected.
-We already saw that the outer product of two vectors can be written
+注意，张量图并不总是连通的。
+我们已经看到，两个向量的外积可以写成
    $\begin{tikzpicture}[baseline=(a0.base), inner sep=1pt]
       \node (a0) {$a$};
       \node[right=.5em of a0] (a1) {$b$};
       \draw (a0.west) -- ++(-.3,0) node {};
       \draw (a1.east) -- ++(.3,0) node {};
    \end{tikzpicture}$.
-This is natural from the sum representation: No edges simply means no sums.
-So here $y_{i,j} = a_i b_j$, which is exactly the outer product $y=a\otimes b$.
+从求和表示来看这很自然：没有边就意味着没有求和。
+因此这里 $y_{i,j} = a_i b_j$，这正是外积 $y=a\otimes b$。
 % Can also mention how this gives us scaling by letter (5) be the order-0 tensor with value 5.
 
 
-\section{The Copy Tensor}
+\section{复制张量}
 
-A particularly important tensor is the ``copy'' tensor, also known as the ``diagonal'', ``kronecker delta'' or ``spider'' tensor.
-The simplest version is the all-ones vector, which we write as $\sbullet-$.
-That is $\sbullet_i = 1$.
-The general order-n tensor is 1 on the diagonal, 0 everywhere else:
+一个特别重要的张量是“复制”张量，也称为“对角”张量、“Kronecker delta”张量或“spider”张量。
+最简单的版本是全 1 向量，我们把它写作 $\sbullet-$。
+也就是说 $\sbullet_i = 1$。
+一般的 $n$ 阶版本在对角线上取值为 1，在其他位置取值为 0：
 \[
    \sbullet_{i,j,k,\ldots} = \begin{cases}
       1\quad \text{if } i=j=k=\dots \\
@@ -305,20 +304,20 @@ The general order-n tensor is 1 on the diagonal, 0 everywhere else:
    \end{cases}
 \]
 % This is also known as the ``copy'' or ``spider'' tensor, or ``generalized Kronecker delta''.
-Or, using Iversonian notation,\footnote{%
-For a logical proposition $P$, we define $
+或者，使用 Iverson 记号，\footnote{%
+对一个逻辑命题 $P$，我们定义 $
    [P] = \begin{cases}
       1 \text{ if } P \\
       0 \text{ otherwise}
    \end{cases}
 $.} $\sbullet_{i,j,k,\dots} = [i=j=k=\dots]$.
-We see the order-2 copy-tensor, $-\sbullet- = I$, is just the identity matrix,
-so we can simply remove it from graphs like this:
+可以看到，2 阶复制张量 $-\sbullet- = I$ 只是单位矩阵，
+因此可以像这样直接从图中删去：
 \[-A\!-\!\sbullet\!-\!B- = -A\!-\!B-\]
 
-Higher order copy-tensors are very useful, because they let us turn the simple tensor graphs into hyper-graphs.
-A simple example of how we can use this is the diagonal matrix $D_a$, which has $a$ on the diagonal and 0 elsewhere.
-We can write this as
+高阶复制张量非常有用，因为它们让我们能够把简单的张量图变成超图。
+一个简单的用法是表示对角矩阵 $D_a$，它在对角线上是 $a$，其他位置是 0。
+我们可以写成
 \[
    D_a = 
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
@@ -329,9 +328,9 @@ We can write this as
       \draw (T) -- ++(0,.3);
    \end{tikzpicture}
 \]
-Why?
-Because $(D_a)_{i,j} = \sum_k \sbullet_{i,j,k} a_k = \sum_k [i=j=k] a_k = [i=j] a_i$.
-Similarly the Hadamard product, $(a\circ b)_i = a_i b_i$, can be written
+为什么？
+因为 $(D_a)_{i,j} = \sum_k \sbullet_{i,j,k} a_k = \sum_k [i=j=k] a_k = [i=j] a_i$。
+类似地，Hadamard 积 $(a\circ b)_i = a_i b_i$ 可以写成
 \[
    a \circ b =
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
@@ -343,8 +342,8 @@ Similarly the Hadamard product, $(a\circ b)_i = a_i b_i$, can be written
       \draw (T) -- ++(0,.3);
    \end{tikzpicture}
 \]
-Now, let's see why everyone loves copy tensors by using it to
-prove the identity $D_aD_b = D_{a\circ b}$ by ``copy tensor manipulation'':
+现在，让我们看看为什么大家都喜欢复制张量：用“复制张量操作”来
+证明恒等式 $D_aD_b = D_{a\circ b}$：
 \[
    D_a D_b =
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
@@ -383,10 +382,10 @@ prove the identity $D_aD_b = D_{a\circ b}$ by ``copy tensor manipulation'':
    =
    D_{a\circ b}.
 \]
-You can verify this using the sum representation.
+你可以用求和表示来验证这一点。
 
-The general rule at play is that any connected sub-graph of copy-tensors can be combined into a single one.
-Sometimes we are even lucky enough that this simplification leaves us with an identity matrix we can remove too:
+这里起作用的一般规则是：任何由复制张量组成的连通子图都可以合并成一个复制张量。
+有时我们甚至足够幸运，化简后还会留下一个可以删去的单位矩阵：
 %\begin{figure}[h]
 %   \centering{
    %\def\svgwidth{.5\linewidth}
@@ -401,13 +400,13 @@ Sometimes we are even lucky enough that this simplification leaves us with an id
 %   \label{fig:spiders}
 %   }
 %\end{figure}
-The only time you have to be a bit careful is when the resulting tensor has order 0.
-Depending on how you define the order-0 copy tensor, $\sbullet$, you may or may not have the identity $\sbullet\!-\!\sbullet = \sbullet$.
+唯一需要稍微小心的是结果张量为 0 阶的时候。
+根据你如何定义 0 阶复制张量 $\sbullet$，恒等式 $\sbullet\!-\!\sbullet = \sbullet$ 可能成立，也可能不成立。
 
-Lots of other constructions that require special notation (like diagonal matrices or Hadamard products) with normal vector notation can be unified using the copy tensor.
+在普通向量记号中许多需要特殊记号的构造（例如对角矩阵或 Hadamard 积），都可以用复制张量统一起来。
 %
-In the Matrix Cookbook they define the order-4 tensor $J$,
-which satisfies $J_{i,j,k,l} = [i=k][j=l]$ and which we'd write as
+在《Matrix Cookbook》中，他们定义了 4 阶张量 $J$，
+它满足 $J_{i,j,k,l} = [i=k][j=l]$，我们会把它写成
 $J=\vcenter{\hbox{
    \begin{tikzpicture}[inner sep=0pt]
    \node (a0) {$\sbullet$};
@@ -417,9 +416,9 @@ $J=\vcenter{\hbox{
    \draw (a1.east) -- ++(.2,0);
    \draw (a1.west) -- ++(-.2,0);
 \end{tikzpicture}}}$,
-and satisfies, for example, $\frac{dX}{dX}=J$.
-Using ``tensor products'' you could write $J=I\otimes I$.
-Note that $J$ is different from the order-4 copy-tensor,
+并且满足例如 $\frac{dX}{dX}=J$。
+使用“张量积”，你可以写成 $J=I\otimes I$。
+注意，$J$ 不同于 4 阶复制张量
 \begin{tikzpicture}[baseline=(a0.base), inner sep=0pt]
    \node (a0) {$\sbullet$};
    \draw (a0) -- ++(.17,.17);
@@ -428,20 +427,20 @@ Note that $J$ is different from the order-4 copy-tensor,
    \draw (a0) -- ++(-.17,-.17);
 \end{tikzpicture}.
 
-\section{Sums of Tensors}
+\section{张量求和}
 
-Tensor products can express any linear function.
-That is $f$ such that $f(a x, b y) = a b f(x,y)$.
-Unfortunately not all operations on tensors are linear.
-Even something as simple as a sum of two vectors, $x+y$, can not be displayed with a simple contraction graph.
-(Note that this is not linear because $ax+by\neq ab(x+y)$.)
+张量积可以表示任何线性函数。
+也就是说，满足 $f(a x, b y) = a b f(x,y)$ 的函数都可以这样表达。
+不幸的是，并非所有张量上的操作都是线性的。
+即使像两个向量之和 $x+y$ 这样简单的运算，也无法用一个简单的缩并图来表示。
+（注意这不是线性的，因为 $ax+by\neq ab(x+y)$。）
 
-To handle this important operation, Penrose suggested simply writing the two graphs with a plus sign between them, such as $-x + -y$.
-Note that this is itself an order-1 tensor, even though it may look like there are two free edges.
-If we want to multiply the sum with another tensor, we can use parentheses like $-M\!-\!(-x + -y)$.
+为了处理这个重要操作，Penrose 建议直接把两个图写在一起，中间加一个加号，例如 $-x + -y$。
+注意这本身仍然是 1 阶张量，尽管看起来像是有两条自由边。
+如果我们想把这个和与另一个张量相乘，可以用括号写成 $-M\!-\!(-x + -y)$。
 
-It can be helpful to use named edges when dealing with sums, to make it clear how the edges are matched up.
-Sums and tensor products interact nicely, with a general form of the distributive law:
+在处理求和时使用命名边会很有帮助，这样更容易看清哪些边彼此对应。
+求和与张量积之间有很好的相互作用，满足一种广义的分配律：
 %\begin{figure}[h]
 %\centering{
 %\def\svgwidth{\linewidth}
@@ -455,11 +454,11 @@ Sums and tensor products interact nicely, with a general form of the distributiv
 %}
 %\end{figure}
 
-When adding tensors that don't have the same number of edges, or have edges with different names, we can use ``broadcasting''.
+当我们相加的张量边数不同，或者边名不同的时候，可以使用“广播（broadcasting）”。
 %Say we want to add a matrix $\,_i\!-M-_j$ and a vector $x$.
-Say we want to add a matrix $M$ and a vector $x$.
-What does it even mean?
-If we want to add $x$ to every row of $M$, we write
+假设我们想把一个矩阵 $M$ 和一个向量 $x$ 相加。
+这到底是什么意思？
+如果我们想把 $x$ 加到 $M$ 的每一行上，可以写成
 $
 \vcenter{\hbox{\begin{tikzpicture}[inner sep=1pt]
    \node (M) {$M$};
@@ -474,7 +473,7 @@ $
    \draw (a1.west) -- ++(-.2,0) node[midway, below, font=\tiny] {$j$};
 \end{tikzpicture}}}
 $.
-This is because
+这是因为
 $
 \vcenter{\hbox{\begin{tikzpicture}[inner sep=1pt]
    \node (a0) {$\sbullet$};
@@ -483,9 +482,8 @@ $
    \draw (a1.west) -- ++(-.2,0) node[midway, below, font=\tiny] {$j$};
 \end{tikzpicture}}}
 $
-is an outer product between $x$ and the all one vector, which is a matrix in which every row is the same.
-Similarly, if we want to add $x$ to every column, we could use
-the matrix
+这是 $x$ 与全 1 向量的外积，得到的是一个每一行都相同的矩阵。
+类似地，如果我们想把 $x$ 加到每一列上，可以使用这个矩阵
 $
 \vcenter{\hbox{\begin{tikzpicture}[inner sep=1pt]
    \node (a0) {$\sbullet$};
@@ -495,19 +493,19 @@ $
 \end{tikzpicture}}}
 $.
 
-Note that we typically don't talk about ``rows'' or ``columns'' when dealing with tensors, but simply use the name edge (sometimes axis) of the tensor.
-When using named edges, operations from classical vector notation like ``transpose'' can also be removed.
-The matrix $X^T$ is simply $X$ where the left and right edge have been swapped.
-But if the edges are named, we don't have to keep track on ``where the edge is'' at all.
+注意，处理张量时我们通常不谈“行”或“列”，而只是使用张量的边名（有时也叫轴）。
+当使用命名边时，像“转置”这样的经典向量记号操作也可以去掉。
+矩阵 $X^T$ 只是把左边和右边的边交换一下而已。
+但如果边已经命名，我们就根本不必再去追踪“边在什么位置”了。
 
-\section{Transposition}
-In classical matrix notation, transposition flips the indices of a matrix, so that
+\section{转置}
+在经典矩阵记号中，转置会交换矩阵的指标，因此
 \[
    (A^T)_{ij} = A_{ji}.
 \]
-In tensor diagram notation, we have two choices depending on whether we want the position of the edges to be significant.
-With significant edge positions, we typically let the ``left edge'' be the first index, and the ``right edge'' be the second index.
-Thus transposition requires flipping the edges:
+在张量图记号中，我们有两种选择，取决于是否要让边的位置具有意义。
+当边位置有意义时，我们通常让“左边”对应第一个指标，让“右边”对应第二个指标。
+因此转置就需要把边翻转：
 \[
    (\matmul{A})^T
    =
@@ -519,10 +517,10 @@ Thus transposition requires flipping the edges:
    =
    \matmul{A^T}.
 \]
-A fun notation used by some authors is flipping the tensor upside down, $\matmul{\vflip{A}}$, as a simpler way to flip the left and right edges.
+有些作者喜欢用把张量上下翻转的记号 $\matmul{\vflip{A}}$，作为交换左右边的更简洁写法。
 
-In practical computations, keeping track of the edge positions can be easy to mess up.
-It's more robust to name the ``outputs'' of the tensor, and let transposition rename the edges:
+在实际计算中，追踪边的位置很容易出错。
+更稳妥的做法是给张量的“输出”命名，并让转置去重命名这些边：
 \[
    (\begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
    \node (A) {$A$};
@@ -539,7 +537,7 @@ It's more robust to name the ``outputs'' of the tensor, and let transposition re
 \end{tikzpicture}
 \]
 %
-Renaming can be done using multiplication by identity matrices:
+重命名可以通过乘上单位矩阵来完成：
 \[
 (\begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
    \node (A) {$A$};
@@ -560,8 +558,8 @@ Renaming can be done using multiplication by identity matrices:
    \draw (j) -- ++(.2,0) node[right, font=\tiny] {$k$};
 \end{tikzpicture},
 \]
-but we have to be careful because overlapping edge names can make multiplication non-associative.
-E.g.
+但必须小心，因为重叠的边名会让乘法失去结合性。
+例如：
 \[
    \big[
 (\begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
@@ -622,18 +620,18 @@ E.g.
    \draw (a1) -- ++(-.1, 0) arc (270:90:.15) -- (a0);
 \end{tikzpicture},
 \]
-where
+其中
 $\begin{tikzpicture}[baseline=-0.7em, inner sep=1pt]
    \node (a0) {$\sbullet$};
    \node[below=.1 of a0] (a1) {$\sbullet$};
    \draw (a0) -- ++(.1, 0) arc (270:90:-.15) -- (a1);
    \draw (a1) -- ++(-.1, 0) arc (270:90:.15) -- (a0);
 \end{tikzpicture}$
-equals the matrix dimension.
-In tensorgrad we solve this problem by requiring that any edge name is present at most twice in any product.
+等于矩阵维数。
+在 Tensorgrad 中，我们通过要求任何一个边名在任意乘积中最多出现两次来解决这个问题。
 
-For the purpose of transcribing the matrix cookbook, using the ``significant position'' notation is more convenient.
-We observe the following identities:
+为了转写《Matrix Cookbook》，使用“位置有意义”的记号更方便。
+我们注意到如下恒等式：
 \begin{walign}
 (A^T)^T &= A 
 &
@@ -692,21 +690,21 @@ We observe the following identities:
 \matmul{ \vflip{B}, \vflip{A} }
 \end{walign}
 
-\subsection{Higher order}
-It is possible to generalize the idea of a transpose to higher order tensors.
-It requires partitioning the edges as ``input'' and ``output'' edges, or more commonly, ``contravariant'' and ``covariant'' edges.
-See the section at the end of this chapter for more on this.
+\subsection{高阶情形}
+可以把转置的思想推广到高阶张量。
+这需要把边划分为“输入”和“输出”边，更常见地说，就是“逆变”边和“协变”边。
+关于这一点的更多内容，见本章末尾的小节。
 
-We say matrices are symmetric if $A^T = A$.
-For higher order tensors, there are many ways to be symmetric.
-See the section~\ref{sec:symmetry} for more on this.
+如果 $A^T = A$，我们就说矩阵是对称的。
+对于高阶张量，对称的方式有很多种。
+更多内容见第~\ref{sec:symmetry} 节。
 
-\section{Trace}
+\section{迹}
 
-The ``trace'' of a square matrix is defined $\mathrm{Tr}(A) = \sum_i A_{i,i}$.
-In tensor diagram notation, that corresponds to a self-edge: $\trace{A}{1}$.
-The Matrix Cookbook has a list of identities using traces.
-Let's reproduce them with tensor diagrams:
+方阵的“迹”定义为 $\mathrm{Tr}(A) = \sum_i A_{i,i}$。
+在张量图记号中，这对应一条自环边：$\trace{A}{1}$。
+《Matrix Cookbook》中有一系列使用迹的恒等式。
+我们用张量图把它们重写出来：
 \begin{walign}
    \tag{11}
    \sum_{i=1}^{n} A_{ii} &= \mathrm{Tr}(A) = \mathrm{Tr}(A I)
@@ -799,9 +797,9 @@ Let's reproduce them with tensor diagrams:
    \hspace{-1em}
 \end{walign}
 
-\subsection{Higher order traces}
-For higher order tensors, we still define the trace as the sum of the diagonal elements.
-That is, for a tensor $A$ of order $n$, the trace is just the product with the order $n$ copy tensor:
+\subsection{高阶迹}
+对于高阶张量，我们仍然把迹定义为对角元素之和。
+也就是说，对于一个 $n$ 阶张量 $A$，迹就是它与 $n$ 阶复制张量的乘积：
 \[
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (Tr) {Tr(};
@@ -821,7 +819,7 @@ That is, for a tensor $A$ of order $n$, the trace is just the product with the o
    \end{tikzpicture}
    .
 \]
-In quantum mechanics, it is common to use a ``partial trace'', which we can define using index notation:
+在量子力学中，常会用到“部分迹”，我们可以用指标记号来定义：
 \[
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (Tr) {Tr$_{i,j}$(};
@@ -840,15 +838,15 @@ In quantum mechanics, it is common to use a ``partial trace'', which we can defi
    \end{tikzpicture}
    .
 \]
-Of course with tensor diagrams, we can also use partial traces without naming the indices.
-We don't even have to think about whether the contractions we use are traces or not.
+当然，在张量图里，我们也可以不命名指标就使用部分迹。
+我们甚至不必去想所做的缩并到底是不是迹。
 
-\section{Eigenvalues}
-Eigenvalues and eigenvectors are fundamental concepts in linear algebra that have important applications in tensor network theory. In tensor diagram notation, we can represent these concepts in a visually intuitive way.
+\section{特征值}
+特征值和特征向量是线性代数中的基本概念，在张量网络理论中也有重要应用。张量图记号可以把这些概念直观地表示出来。
 
-For a matrix $A$, if there exists a non-zero vector $v$ and a scalar $\lambda$ such that $Av = \lambda v$, then $\lambda$ is called an eigenvalue of $A$, and $v$ is the corresponding eigenvector.
-In tensor diagram notation It's convenient to write its eigendecomposition as $A = Q\Lambda Q^{-1}$, where $Q$ is a matrix whose columns are the eigenvectors of $A$, and $\Lambda$ is a diagonal matrix of the eigenvalues.
-Thus:
+对于矩阵 $A$，如果存在非零向量 $v$ 和标量 $\lambda$ 使得 $Av = \lambda v$，那么 $\lambda$ 就称为 $A$ 的一个特征值，而 $v$ 是相应的特征向量。
+在张量图记号中，把它的特征分解写成 $A = Q\Lambda Q^{-1}$ 很方便，其中 $Q$ 的列是 $A$ 的特征向量，$\Lambda$ 是由特征值组成的对角矩阵。
+因此：
 \begin{align}
    \label{eq:eigen-decomposition}
    \begin{tikzpicture}[baseline=(A.base), inner sep=1pt]
@@ -869,7 +867,7 @@ Thus:
    \draw (Qi.east) -- ++(.3, 0);
    \end{tikzpicture}
 \end{align}
-The trace of a matrix is equal to the sum of its eigenvalues. We can represent this relationship using tensor diagrams:
+矩阵的迹等于其特征值之和。我们可以用张量图表示这一关系：
 \[
    \tag{12}
    \text{Tr}(A)
@@ -911,19 +909,19 @@ The trace of a matrix is equal to the sum of its eigenvalues. We can represent t
 
 
 
-\section{Symmetry and Symmetrization}
+\section{对称与对称化}
 \label{sec:symmetry}
 
-A common property of tensors is symmetry.
-For matrices, symmetry means that $A^T = A$.
-For tensors it means that permuting its indices does not change its value.
-Typical examples are Covariance or Hessian matrices,
-but also certain higher-order statistical moments, like the third or fourth moment tensors, can exhibit symmetries.
-Sometimes only with respect to particular group, but most of the time with respect to all permutations of edges.
-The Copy Tensor is a simple example of a completely symmetric tensor.
+张量的一个常见性质是对称性。
+对矩阵来说，对称性意味着 $A^T = A$。
+对张量来说，则意味着交换其指标不会改变它的值。
+典型例子是协方差矩阵或 Hessian 矩阵，
+但某些高阶统计矩，比如三阶或四阶矩张量，也可能具有对称性。
+有时这种对称性只相对于某个特定群成立，但大多数时候是相对于边的所有置换成立。
+复制张量就是一个完全对称张量的简单例子。
 
-Sometimes it will be useful to symmetrize a tensor by summing over all permutations of its indices.
-We write this using a squiggly line over the symmetrized edges:
+有时我们会通过对所有指标置换求和来对张量进行对称化。
+我们用一条波浪线覆盖被对称化的边来表示：
 \[
    \begin{tikzpicture}[baseline=.1em, inner sep=2pt, x=1em, y=.7em]
       \draw (0,0) -- ++(1,0);
@@ -984,7 +982,7 @@ We write this using a squiggly line over the symmetrized edges:
       \draw (0,2) -- ++(1,-2);
    \end{tikzpicture}
 \]
-For example, if $A$ is a square matrix,
+例如，如果 $A$ 是一个方阵，
 \(
    A + A^T =
    \begin{tikzpicture}[baseline=(A.base), inner sep=2pt, x=2em, y=2em]
@@ -1008,9 +1006,9 @@ For example, if $A$ is a square matrix,
    \end{tikzpicture}
    .
 \)
-There is a complementary notion of \emph{anti-symmetrization} (or \emph{skew-symmetrization}), where we sum over \emph{all permutations with appropriate sign}.
-For instance, a rank-2 skew-symmetric matrix \(A\) satisfies \(A_{ij} = -A_{ji}\).
-We can anti-symmetrize using a flat thick line:
+还有一个互补概念是\emph{反对称化}（或\emph{斜对称化}），此时我们对\emph{所有置换按适当符号}求和。
+例如，一个 2 阶斜对称矩阵 \(A\) 满足 \(A_{ij} = -A_{ji}\)。
+我们可以用一条扁平的粗线表示反对称化：
 \(
    \begin{tikzpicture}[baseline=(A.base), inner sep=2pt, x=2em, y=2em]
       \node (A) at (0,0) {$A$};
@@ -1032,9 +1030,9 @@ We can anti-symmetrize using a flat thick line:
    \end{tikzpicture}
    .
 \)
-In higher-rank cases, the sign of each term is determined by the parity of the permutation.
+在更高阶的情形下，每一项的符号由置换的奇偶性决定。
 
-Both tensors are idempotent, since symmetrizing a symmetric tensor has no effect:
+这两种张量都是幂等的，因为对一个已经对称的张量再做对称化不会改变它：
 \[
    \begin{tikzpicture}[baseline=.5em, inner sep=2pt, x=1em, y=.7em]
       \draw (0,0) -- ++(2,0);
@@ -1069,13 +1067,13 @@ Both tensors are idempotent, since symmetrizing a symmetric tensor has no effect
 \]
 
 
-\section{Covariance and Contravariance}
+\section{协变与逆变}
 
-In physics it's often relevant to change between different coordinate systems.
-Most such changes transform the left and right side of matrices differently, and similarly row and column vectors.
-For tensors this generalize to the concepts of covariance and contravariance.
-With notion, we keep track of ``input'' and ``output'' vectors.
-We'll also need to distinguish between things such as the identity matrix, $\matmul{\sbullet}$,
+在物理学中，经常需要在不同坐标系之间变换。
+这类变换往往会以不同方式作用在矩阵的左侧和右侧，也会类似地作用于行向量和列向量。
+对于张量，这就推广为协变与逆变的概念。
+借助这些概念，我们需要跟踪“输入”和“输出”向量。
+我们还需要区分诸如单位矩阵 $\matmul{\sbullet}$、
 $\begin{tikzpicture}[baseline=(a0.base), inner sep=0pt]
    \node (a0) {$\sbullet$};
    \draw (a0) -- ++(-.17,.1);
@@ -1088,25 +1086,25 @@ $\begin{tikzpicture}[baseline=(a0.base), inner sep=0pt]
    \draw (a0) -- ++(.17,-.1);
 \end{tikzpicture}$.
 
-This notion allows some ability to ``algebraically'' combine tensors, by connecting input edges to output edges, just like we do with matrices and vectors.
-However, for more complicated tensors, we need to know which edges to combine, and index notation is more useful.
+这个概念让我们可以通过把输入边连接到输出边，像处理矩阵和向量那样在一定程度上“代数地”组合张量。
+不过，对更复杂的张量来说，我们需要知道具体该连接哪些边，而这时指标记号更有用。
 
-In computer science and machine learning, the concept of covariance and contravariance is typically not useful, so we won't use it in this book.
+在计算机科学和机器学习中，协变与逆变的概念通常并不实用，所以本书不会使用它。
 
-\section{Exercises}
+\section{练习}
 \begin{exercise}
-   Given a sequence of matrices $A_1, A_2, \ldots, A_n \in \mathbb R^{n\times n}$,
-   and vectors $v_1, v_2, \ldots, v_n \in \mathbb R^n$,
-   draw, using tensor diagrams, the matrix made of vectors $A_1v_1, A_2v_2, \ldots, A_nv_n$.
+   给定一列矩阵 $A_1, A_2, \ldots, A_n \in \mathbb R^{n\times n}$，
+   以及向量 $v_1, v_2, \ldots, v_n \in \mathbb R^n$，
+   请用张量图画出由向量 $A_1v_1, A_2v_2, \ldots, A_nv_n$ 组成的矩阵。
 \end{exercise}
 \begin{exercise}
-Represent the Hadamard product (element-wise multiplication) of two matrices using tensor diagrams.
-How does this differ from regular matrix multiplication?
-(We will see more about this in \ref{sec:hadamard}.)
+用张量图表示两个矩阵的 Hadamard 积（逐元素乘法）。
+它与普通矩阵乘法有何不同？
+（关于这一点，见 \ref{sec:hadamard}。）
 \end{exercise}
 \begin{exercise}
-Represent the SVD of a matrix $A = U\Sigma V^T$ using tensor diagrams.
-How does this compare to the eigendecomposition diagram?
-How can you generalize it to higher order tensors?
-(In section \ref{sec:HOSVD} we will see more about this.)
+用张量图表示矩阵 $A = U\Sigma V^T$ 的 SVD。
+这与特征分解的图示相比如何？
+如何把它推广到高阶张量？
+（在第 \ref{sec:HOSVD} 节我们会看到更多内容。）
 \end{exercise}
