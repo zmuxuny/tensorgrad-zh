@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate remaining disabled book chapters, currently `paper/chapters/ml.tex`
+- Translate remaining disabled book chapters, currently `paper/chapters/tensor_algos.tex`
 
 ## Done
 
@@ -16,10 +16,12 @@
 - Verified `special_matrices.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
 - Translated disabled `paper/chapters/decompositions.tex`.
 - Verified `decompositions.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
+- Translated disabled `paper/chapters/ml.tex`.
+- Verified `ml.tex` by temporarily enabling it in `cookbook.tex`.
 
 ## Next
 
-- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `ml.tex`.
+- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `tensor_algos.tex`.
 - Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open
