@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate remaining disabled book chapters, currently `paper/chapters/advanced_derivatives.tex`
+- Translate remaining disabled book chapters, currently `paper/chapters/special_matrices.tex`
 
 ## Done
 
@@ -22,10 +22,12 @@
 - Verified `functions.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
 - Translated disabled `paper/chapters/determinant.tex`.
 - Verified `determinant.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
+- Translated disabled `paper/chapters/advanced_derivatives.tex`.
+- Verified `advanced_derivatives.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
 
 ## Next
 
-- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `advanced_derivatives.tex`.
+- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `special_matrices.tex`.
 - Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open

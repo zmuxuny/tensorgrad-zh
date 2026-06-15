@@ -1,9 +1,9 @@
 
-\chapter{Advanced Derivatives}
+\chapter{高级导数}
 
-\section{Derivatives of vector norms}
+\section{向量范数的导数}
 
-\subsection{Two-norm}
+\subsection{二范数}
 \begin{align}
    \frac{d}{dx}\|x-a\|_2 &= \frac{x-a}{\|x-a\|_2}
    \\
@@ -12,34 +12,34 @@
    \frac{d}{dx}\|x\|_2^2 = \frac{d}{dx}\|x^T x\|_2 = 2x
 \end{align}
 
-\section{Derivatives of matrix norms}
+\section{矩阵范数的导数}
 
-\section{Derivatives of Structured Matrices}
+\section{结构化矩阵的导数}
 
-\subsection{Symmetric}
-\subsection{Diagonal}
-\subsection{Toeplitz}
+\subsection{对称矩阵}
+\subsection{对角矩阵}
+\subsection{Toeplitz 矩阵}
 
-\section{Derivatives of a Determinant}
-\section{General forms}
-\section{Linear forms}
-\section{Square forms}
+\section{行列式的导数}
+\section{一般形式}
+\section{线性形式}
+\section{平方形式}
  
-\section{From Stack Exchange}
+\section{来自 Stack Exchange}
 
-Let $F(t)=|1+t A|$ then
-$F'(t) = \mathrm{Tr}(A)$ and
+令 $F(t)=|1+t A|$，则
+$F'(t) = \mathrm{Tr}(A)$ 且
 $F''(t) = \mathrm{Tr}(A)^2 - \mathrm{Tr}(A^2)$.
 
-\section{Derivatives of an Inverse}
+\section{逆矩阵的导数}
 
 
-\subsection{Trace Identities}
+\subsection{迹恒等式}
 $$
 \frac{\partial}{\partial \mathbf{X}} \operatorname{Tr}\left(\mathbf{A} \mathbf{X}^{-1} \mathbf{B}\right)=-\left(\mathbf{X}^{-1} \mathbf{B} \mathbf{A} \mathbf{X}^{-1}\right)^T=-\mathbf{X}^{-T} \mathbf{A}^T \mathbf{B}^T \mathbf{X}^{-T}
 $$
 
-Assume $\mathbf{B}$ and $\mathbf{C}$ to be symmetric, then
+假设 $\mathbf{B}$ 与 $\mathbf{C}$ 是对称矩阵，则
 $$
 \begin{aligned}
 \frac{\partial}{\partial \mathbf{X}} \operatorname{Tr}\left[\left(\mathbf{X}^T \mathbf{C X}\right)^{-1} \mathbf{A}\right] & =-\left(\mathbf{C X}\left(\mathbf{X}^T \mathbf{C X}\right)^{-1}\right)\left(\mathbf{A}+\mathbf{A}^T\right)\left(\mathbf{X}^T \mathbf{C X}\right)^{-1} \\
@@ -50,14 +50,14 @@ $$
 \end{aligned}
 $$
 
-\section{Derivatives of Eigenvalues}
+\section{特征值的导数}
 
-\section{Exercises}
+\section{练习}
 \begin{exercise}
-   Find the derivative of
+   求
 \[
    f(x,\Sigma,\mu) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}}
    \exp\left(-\frac12(x-\mu)^T \Sigma^{-1} (x-\mu)\right)
 \]
-   with respect to $\Sigma$.
+   关于 $\Sigma$ 的导数。
 \end{exercise}
