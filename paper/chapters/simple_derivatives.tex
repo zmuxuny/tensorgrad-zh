@@ -1,20 +1,20 @@
 
-\chapter{Simple Derivatives}
+\chapter{简单导数}
 
-A derivative with respect to a tensor is simply the collection of derivatives with respect to each element of this tensor.
-We can keep track of $\frac{d T}{d U}$ by making a tensor of shape $\mathrm{shape}(T) \cup \mathrm{shape}(U)$.
-For example, if $T$ is an order-3 tensor and $U$ is an order-2 tensor, we draw $dT/dU$ as
+关于一个张量的导数，就是关于这个张量每个元素的导数组成的集合。
+我们可以构造一个形状为 $\mathrm{shape}(T) \cup \mathrm{shape}(U)$ 的张量来记录 $\frac{d T}{d U}$。
+例如，如果 $T$ 是一个 3 阶张量，而 $U$ 是一个 2 阶张量，我们把 $dT/dU$ 画成
 \[
    \frac{dT}{dU} =
    \vcenter{\hbox{
       \import{figures/}{dTdU.pdf_tex}
    }}
 \]
-This notation follows Penrose.
-The two extra lines coming from the black dot on the circle makes the derivative an order-5 tensor.
-That the order of derivatives grows this way, is one of the main reasons we'll encounter for tensors to show up in the first place.
+这个记号沿用 Penrose 的做法。
+圆圈上黑点引出的两条额外连线，使得该导数成为一个 5 阶张量。
+导数的阶数会以这种方式增长，正是张量一开始会自然出现的主要原因之一。
 
-When there are not too many edges, we will use a simple inline notation like this:
+当边数不太多时，我们会使用下面这种简单的行内记号：
 \[
 \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
    \node (T) {$(T)$};
@@ -26,13 +26,13 @@ When there are not too many edges, we will use a simple inline notation like thi
 \end{tikzpicture}
 \]
 
-The Matrix Cookbook defines the single-entry matrix $J^{i,j} \in R^{n\times n}$ as the matrix which is zero everywhere except in the entry $(i, j)$ in which it is 1.
-Alternatively we could write $J^{i,j}_{n,m} = [i=n][j=m]$.
+《Matrix Cookbook》把单项矩阵 $J^{i,j} \in R^{n\times n}$ 定义为除了 $(i, j)$ 位置为 1 之外其余位置全为 0 的矩阵。
+换一种写法就是 $J^{i,j}_{n,m} = [i=n][j=m]$。
 
-\section{Derivatives of Matrices, Vectors and Scalar Forms}
+\section{矩阵、向量与标量形式的导数}
 
-\subsection{First Order}
-The following first order derivatives show the basic linearity properties of the derivative operator.
+\subsection{一阶}
+下面这些一阶导数展示了导数算子的基本线性性质。
 
 \begin{walign}
    \tag{69}
@@ -174,14 +174,14 @@ The following first order derivatives show the basic linearity properties of the
       \end{tikzpicture}
 \end{walign}
 
-\subsection{Second Order}
-The second order derivatives are follow from the product rule:
+\subsection{二阶}
+二阶导数由乘积法则得到：
 \[
    \vcenter{\hbox{
       \import{figures/}{product.pdf_tex}
    }}
 \]
-Note that this rule holds independently of how many edges are between $T$ and $U$, even if there are none.
+注意，无论 $T$ 和 $U$ 之间有多少条边，这条规则都成立；即使没有边也成立。
 
 \begin{walign}
    \tag{76}
@@ -430,12 +430,11 @@ Note that this rule holds independently of how many edges are between $T$ and $U
 \end{walign}
 
 
-TODO: Assume $W$ is symmetric, then... (84) - (88)
+TODO: 假设 $W$ 是对称的，则……（84）-（88）
 
-\subsection{Higher Order}
-Integer powers of matrices, like $X^n$, are easy to handle by writing
-out the product and using the product rule.
-The Matrix Cookbook includes a few derivatives we can handle this way.
+\subsection{高阶}
+像 $X^n$ 这样的矩阵整数幂，可以通过展开乘积并使用乘积法则来轻松处理。
+《Matrix Cookbook》中包含一些可以这样处理的导数。
 \begin{walign}
    \\[.5em]
    \tag{90}
@@ -531,9 +530,9 @@ The Matrix Cookbook includes a few derivatives we can handle this way.
 % sum_{a>=0} sum_{b>=0} X^a X^b / (a+b+1)!
 
 
-\section{Derivatives of Traces}
-The Matrix Cookbook contains a lot of derivatives for traces.
-These can be elegant in classical notation, since traces are scalar, so the derivatives are low order.
+\section{迹的导数}
+《Matrix Cookbook》中包含大量关于迹的导数。
+这些式子在经典记号中可以很优雅，因为迹是标量，所以导数阶数较低。
 
 % Many more examples here: https://mbustamanter.github.io/ssg-blog/matder1/
 
@@ -659,8 +658,8 @@ These can be elegant in classical notation, since traces are scalar, so the deri
 \end{walign}
 
 
-Continues for (102-105).
-The last one uses the Kronecker product, which we may have to introduce first.
+后续还有（102-105）。
+最后一个式子使用 Kronecker 积，我们可能需要先介绍它。
 
 \subsection{Second Order}
 \begin{walign}
@@ -934,9 +933,9 @@ The last one uses the Kronecker product, which we may have to introduce first.
    \matmul{X, B^T} + \matmul{X, B}
 \end{walign}
 
-The last equation is a bit surprising, since we might assume
-we could simply substitute $X$ for $X^T$ in the previous equation
-and conclude
+最后一个方程有些出人意料，因为我们可能会以为
+只要在上一个方程中把 $X^T$ 简单替换为 $X$，
+就能推出
 \[
    (B+B^T)X
    =
@@ -945,9 +944,9 @@ and conclude
    \frac{\partial}{\partial X} \mathrm{Tr}(X^T B X)
    = X(B^T + B).
 \]
-However that is clearly not that case.
-Such substitution would only work for a linear function, not a quadratic.
-In general it is the case that
+然而这显然并非如此。
+这种替换只对线性函数有效，对二次函数无效。
+一般来说，有
 $\frac{\partial}{\partial X} f(X)^T \neq
 \frac{\partial}{\partial X} f(X^T)$.
 %Instead we have
@@ -1030,17 +1029,17 @@ $\frac{\partial}{\partial X} f(X)^T \neq
 \end{walign}
 
 
-\section{Exercises}
+\section{练习}
 \begin{exercise}
-   Find the derivative of \((x^T A x)^2\) with respect to $x$.
+   求 \((x^T A x)^2\) 关于 $x$ 的导数。
 \end{exercise}
 
 \begin{exercise}
-   Find the second derivative of
+   求
    \[
       x^T A^T x x^T A x
    \]
-   with respect to $x$.
+   关于 $x$ 的二阶导数。
    % Using tensorgrad we get that it is
    % https://math.stackexchange.com/questions/3015464/second-derivative-of-a-matrix-quartic-form/4977819#4977819
    % 2 ((x^T S)(S x) + x^T A x S),
@@ -1048,11 +1047,11 @@ $\frac{\partial}{\partial X} f(X)^T \neq
 \end{exercise}
 
 \begin{exercise}
-   Find the derivative of \(X^T A X\) with respect to $X$.
+   求 \(X^T A X\) 关于 $X$ 的导数。
 \end{exercise}
 
 \begin{exercise}
-   Show the derivatives:
+   证明以下导数：
    \begin{align*}
    \tag{78}
    \frac{\partial}{\partial x} (Bx+b)^T C (Dx+d)
@@ -1069,7 +1068,7 @@ $\frac{\partial}{\partial X} f(X)^T \neq
 \end{exercise}
 
 \begin{exercise}
-   Show the remaining second order trace derivatives from the Matrix Cookbook:
+   证明《Matrix Cookbook》中剩余的二阶迹导数：
    \begin{align*}
       \tag{114}
    \frac{\partial}{\partial X} \operatorname{Tr}(A X B X)
@@ -1099,7 +1098,7 @@ $\frac{\partial}{\partial X} f(X)^T \neq
 \end{exercise}
 
 \begin{exercise}
-   Show the derivative of the fourth order trace from the Matrix Cookbook:
+   证明《Matrix Cookbook》中的四阶迹导数：
    \begin{align*}
       \tag{123}
 \frac{\partial}{\partial X} \operatorname{Tr}\left[B^T X^T C X X^T C X B\right]
@@ -1109,4 +1108,3 @@ $\frac{\partial}{\partial X} f(X)^T \neq
 \\&+ C^T X X^T C^T X B B^T
    \end{align*}
 \end{exercise}
-
