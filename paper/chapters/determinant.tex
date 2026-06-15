@@ -1,8 +1,8 @@
 
-\chapter{Determinant and Inverses}
-\section{Determinant}
+\chapter{行列式与逆矩阵}
+\section{行列式}
 
-It's convenient to write the determinant in tensor notation as
+用张量记号把行列式写成如下形式很方便：
 \[\mathrm{det}(A)=
 \frac{1}{n!}\,\mathbin{
 \begin{tikzpicture}[baseline=(a0.base), inner sep=1pt]
@@ -17,9 +17,9 @@ It's convenient to write the determinant in tensor notation as
    \draw[line width=2pt] (a0bot -| a0.west) -- (a1bot -| a1.east);
 \end{tikzpicture}}
 \]
-where
+其中
 $\mathbin{
-\begin{tikzpicture}[baseline=(a0.south)-3em, inner sep=1pt]
+\begin{tikzpicture}[baseline=(a0.south), inner sep=1pt]
    \node (a0) {\tiny $i_1$};
    \node[right=.5em of a0] (a1) {\tiny $i_2$};
    \node[right=.5em of a1] (dots) {$\dots$};
@@ -30,15 +30,15 @@ $\mathbin{
    \draw[line width=2pt] (a0bot -| a0.west) -- (a2bot -| a2.east);
 \end{tikzpicture}}
 =\varepsilon_{i_1,\dots,i_n}$
-is the rank-$n$ Levi-Civita tensor defined by
+是如下定义的 $n$ 阶 Levi-Civita 张量：
 \[
    \varepsilon_{i_1, \dots, i_n} =
    \begin{cases}
-      \mathrm{sign}(\sigma) & \sigma=(i_1, \dots, i_n) \text{ is a permutation} \\
-      0 & \text{otherwise.}
+      \mathrm{sign}(\sigma) & \sigma=(i_1, \dots, i_n) \text{ 是一个置换} \\
+      0 & \text{其他情况。}
    \end{cases}
 \]
-To see that the definition makes sense, let's first consider
+为了看出这个定义是合理的，先考虑
 \begin{align*}
    \mathrm{det}(I)=
    \frac{1}{n!}
@@ -77,7 +77,7 @@ To see that the definition makes sense, let's first consider
 %\\&
 = 1.
 \end{align*}
-In general we get from the permutation definition of the determinant:
+一般地，由行列式的置换定义可得：
 \begin{align*}
    \detstack{A}
    &=
@@ -103,9 +103,9 @@ In general we get from the permutation definition of the determinant:
    \\&=
    n! \mathrm{det}(A).
 \end{align*}
-The definition generalizes to Cayley's ``hyper determinants'' by $\dots$.
+这个定义可以通过 $\dots$ 推广到 Cayley 的“超行列式”（hyper determinants）。
 
-A curious property is that
+一个有趣的性质是
 \[
    \mathbin{\begin{tikzpicture}[baseline=(a0.base), inner sep=1pt]
       \node (a0) {$A$};
@@ -215,7 +215,5 @@ A curious property is that
 \end{tabular}
 
 
-\section{Inverses}
-Might be reduced, unless cofactor matrices have a nice representation?
-
-
+\section{逆矩阵}
+这里或许可以化简，除非余子式矩阵有漂亮的表示。
