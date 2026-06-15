@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate remaining disabled book chapters, currently `paper/chapters/decompositions.tex`
+- Translate remaining disabled book chapters, currently `paper/chapters/ml.tex`
 
 ## Done
 
@@ -14,10 +14,12 @@
 - Translated disabled `paper/chapters/determinant.tex` and `paper/chapters/advanced_derivatives.tex`.
 - Translated disabled `paper/chapters/special_matrices.tex`.
 - Verified `special_matrices.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
+- Translated disabled `paper/chapters/decompositions.tex`.
+- Verified `decompositions.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
 
 ## Next
 
-- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `decompositions.tex`.
+- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `ml.tex`.
 - Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open

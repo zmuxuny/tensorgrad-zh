@@ -1,42 +1,42 @@
 
-\chapter{Decompositions}
+\chapter{分解}
 
 % There are some examples of notation in Jordan Taylor's blog post:
 % https://www.lesswrong.com/posts/BQKKQiBmc63fwjDrj/graphical-tensor-notation-for-interpretability#:~:text=General%20tensors%20can%20also%20be%20decomposed
 
-\section{Higher-order singular value decomposition}
+\section{高阶奇异值分解}
 \label{sec:HOSVD}
-Say we have an order $n$ tensor $A$.
-We ``unfold'' $A$ along each dimension.
-This means pulling the edge $i$ to the left, and flattening the rest to the right.
-Then we compute the SVD, $USV$.
-Here $U$ is a square matrix, which we keep.
-We multiply the $i$th edge of $A$ by $U^T$ (which is also the inverse of $U$).
-The result is a ``core'' tensor as well as a sequence of $U$ tensors.
-If we want a more compact SVD, we can make each $U$ low rank, like normal SVD.
-There is also the ``Interlacing computation`` where we multiply the $U^T$s onto $A$ as we go along.
+假设有一个 $n$ 阶张量 $A$。
+我们沿每个维度“展开”（unfold）$A$。
+这意味着把边 $i$ 拉到左侧，并把其余部分展平到右侧。
+然后计算 SVD，即 $USV$。
+这里 $U$ 是一个方阵，我们会保留它。
+用 $U^T$ 乘到 $A$ 的第 $i$ 条边上（它同时也是 $U$ 的逆）。
+结果会得到一个“核心”（core）张量以及一列 $U$ 张量。
+如果想要更紧凑的 SVD，可以像普通 SVD 一样令每个 $U$ 低秩。
+还有一种“交错计算”（Interlacing computation），即在遍历过程中不断把各个 $U^T$ 乘到 $A$ 上。
 
-For order $3$ tensors, this method is called a ``Tucker decomposition''.
+对于 $3$ 阶张量，这种方法称为“Tucker 分解”（Tucker decomposition）。
 
 % This paper has some reasonably good explanations of improved methods, such as HOOI:
 % https://www-users.cse.umn.edu/~saad/PDF/umsi-2006-132.pdf
-If the ``core matrix'' is diagonal, this is called tensor rank decomposition.
-If we were good at that, we could use it to factor $I^{\otimes 3}$ to get better matrix multiplication algorithms.
-Unfortunately tensor rank decomposition is NP hard.
+如果“核心矩阵”是对角的，这就称为张量秩分解。
+如果我们能很好地完成这种分解，就可以用它分解 $I^{\otimes 3}$，从而得到更好的矩阵乘法算法。
+遗憾的是，张量秩分解是 NP-hard 的。
 
-I guess HOSVD gives a rank decomposition if we diagonalize the core tensor.
-It just won't be an efficient one.
+我猜如果对核心张量做对角化，HOSVD 会给出一个秩分解。
+只是它不会是一个高效分解。
 %What about a method where we first compute a (lower rank) HOSVD, then 
 
-\section{Rank Decomposition}
+\section{秩分解}
 
-\subsection{Border Rank}
-The border rank of a tensor is the smallest rank of a tensor that is close to it.
-TODO: Example where the border rank is much smaller than the rank.
+\subsection{边界秩}
+张量的边界秩是与它接近的张量中最小的秩。
+TODO：给出边界秩远小于秩的例子。
 
-\section{Fast Matrix Multiplication}
+\section{快速矩阵乘法}
 
-Strassen defines 3 tensors of shape $7\times 2\times 2$:
+Strassen 定义了 3 个形状为 $7\times 2\times 2$ 的张量：
 \begin{align*}
    \renewcommand*{\arraystretch}{1}
 S_A &= \begin{bmatrix}
@@ -69,7 +69,7 @@ W &= \begin{bmatrix}
 \smat{1 & 0\\0 & 0}
 \end{bmatrix}
 \end{align*}
-These tensors have the neat property that they factor $I_2\otimes I_2\otimes I_2$:
+这些张量具有一个很好的性质：它们分解了 $I_2\otimes I_2\otimes I_2$：
 \[
 \begin{tikzpicture}[inner sep=1pt, baseline=.0em]
     \node (m) at (0,0) {$\sbullet$};
@@ -113,8 +113,8 @@ These tensors have the neat property that they factor $I_2\otimes I_2\otimes I_2
 % TODO: This actually looks like one of the weird plots Penrose makes. Just without the `symmetrization'. Could it be relevant?
 %We say that the tensor $I_2\otimes I_2\otimes I_2$ has rank 7, because it can be written as a sum of 7 simple tensors.
 %
-To multiply two matrices, $A$ and $B$, faster than the normal $n^3$ time,
-we reshape them as block matrices, shape $(2,\frac n 2,2,\frac n 2)$ and use Strassen's tensor:
+为了以快于通常 $n^3$ 时间的方式相乘两个矩阵 $A$ 和 $B$，
+我们把它们重塑为形状为 $(2,\frac n 2,2,\frac n 2)$ 的块矩阵，并使用 Strassen 的张量：
 %This means that if we have two $n\times n$ matrices, $A$ and $B$, and we write them as block matrices, shape $2\times \frac n2\times 2\times \frac n2$, we get
 \[
 \begin{tikzpicture}[inner sep=1pt, baseline=.0em]
@@ -170,9 +170,9 @@ we reshape them as block matrices, shape $(2,\frac n 2,2,\frac n 2)$ and use Str
 \end{tikzpicture}
 .
 \]
-Contracting the edges in the right order, uses only $7/8 n^3 + O(n^2)$ operations.
+按正确顺序缩并这些边，只需要 $7/8 n^3 + O(n^2)$ 次运算。
 
-If we instead reshape to $(2,2,\dots,2)$,
+如果改为重塑成 $(2,2,\dots,2)$，
 \[
 AB = 
    \begin{tikzpicture}[baseline=-1em, y=1.7em]
@@ -189,30 +189,29 @@ AB =
    \end{tikzpicture}
    \,,
 \]
-and using Strassen's tensor along each axis reduces the work by $(7/8)^{\log_2(n)}$, giving us matrix multiplication in time $n^{3 + \log_2(7/8)} = n^{2.80735}$.
+并沿每个轴使用 Strassen 张量，那么工作量会减少 $(7/8)^{\log_2(n)}$，从而得到时间为 $n^{3 + \log_2(7/8)} = n^{2.80735}$ 的矩阵乘法。
 
 
 \newpage
 
-Contracting the double edges, $S_A - A$ and $S_B - B$, is both $O(n^2)$ time.
+缩并双边 $S_A - A$ 和 $S_B - B$ 都需要 $O(n^2)$ 时间。
 
-It remains to verify that this is actually faster than the naive matrix multiplication:
-Contracting $S_A - A$ takes $7\cdot 2^2 (n/2)^2$ operations, and likewise $S_B - B$.
-Next we contract $S_AA - S_BB$ which takes $7(n/2)^3$ time.
-And finally we contract the edge with $W$ which takes $2^2 \cdot 7 (n/2)^2$.
-The important term is the cubic $7/8 n^3$, which if instead done recursively, leads to the classical $O(n^{\log_2 7})$ algorithm.
+还需要验证这确实比朴素矩阵乘法更快：
+缩并 $S_A - A$ 需要 $7\cdot 2^2 (n/2)^2$ 次运算，$S_B - B$ 同理。
+接下来缩并 $S_AA - S_BB$，这需要 $7(n/2)^3$ 时间。
+最后缩并与 $W$ 相连的边，需要 $2^2 \cdot 7 (n/2)^2$。
+关键项是三次项 $7/8 n^3$；如果改为递归执行，就得到经典的 $O(n^{\log_2 7})$ 算法。
 
-FIXME: What ``edge with $W$''? I think we have to/want to contract the hyperedge with $W$ immediately?
+FIXME：什么是“与 $W$ 相连的边”？我认为我们必须/想要立即缩并与 $W$ 相连的超边？
 
-\subsubsection{Other}
+\subsubsection{其他}
 
-If we instead wrote $A$ and $B$ using $(n,m)$ and $(m,p)$ shaped blocks, we could factor $I_n\otimes I_m\otimes I_p$ and get a matrix multiplication algorithm using the same approach as the Strassen $(2,2,2)$ tensors above.
-Lots of papers have investigated this problem, which has led to the best algorithms by Josh Alman and others.
-For example, Deep Mind found a rank 47 factorization of $I_3\otimes I_4\otimes I_5$.
+如果改用形状为 $(n,m)$ 和 $(m,p)$ 的块来表示 $A$ 和 $B$，就可以分解 $I_n\otimes I_m\otimes I_p$，并用与上面 Strassen $(2,2,2)$ 张量相同的方法得到矩阵乘法算法。
+许多论文研究过这个问题，并由此产生了 Josh Alman 等人的最佳算法。
+例如，Deep Mind 找到了 $I_3\otimes I_4\otimes I_5$ 的秩 47 分解。
 
-Maybe a more interesting example is the $(4,4,4)$ tensor, for which they find a rank 47 factorization.
-This an easy way to create a rank 49 is to take Strassen and double it.
-Would this be a nice thing to show? Maybe too messy?
-Well, actually their rank 47 construction only works in the ``modular'' case. Then $(3,4,5)$ is general.
-
+也许更有趣的例子是 $(4,4,4)$ 张量，他们为它找到了一个秩 47 分解。
+一种容易构造秩 49 分解的方法是取 Strassen 分解并把它加倍。
+这会是一个值得展示的例子吗？也许太杂乱了？
+不过实际上，他们的秩 47 构造只在“模”（modular）情形下成立。于是 $(3,4,5)$ 是一般情形。
 
