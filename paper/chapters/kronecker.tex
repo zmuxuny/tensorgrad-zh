@@ -1,19 +1,19 @@
 
-\chapter{Kronecker and Vec Operator}
+\chapter{Kronecker 积与 Vec 算子}
 
-\section{Flattening}
+\section{展平}
 
-Flattening is a common operation for programmers.
-In the language of numpy, we may write
-\verb|np.ones((2,3,4)).reshape(2, 12)| to flatten a shape (2,3,4) tensor into a shape (2,12) matrix.
-Similarly, in mathematical notation, $\mathrm{vec}(X)$ is commonly used to denote the flattening of a matrix into a vector.
+展平（flattening）是程序员常用的操作。
+用 numpy 的语言来说，我们可以写
+\verb|np.ones((2,3,4)).reshape(2, 12)|，把形状为 (2,3,4) 的张量展平成形状为 (2,12) 的矩阵。
+类似地，在数学记号中，$\mathrm{vec}(X)$ 通常用来表示把矩阵展平成向量。
 
-Typically the main reason to do this is as a cludge for dealing with bad general notation for tensors.
-Hence, with tensor diagrams, we can avoid this operation entirely.
-However, it is still interesting to see how tensor diagrams can make a lot of properties of flattening much more transparent.
+通常这么做的主要原因，是为了绕开张量通用记号不够好用的问题。
+因此，有了张量图，我们完全可以避免这种操作。
+不过，看看张量图如何让展平的许多性质变得更加透明，仍然很有意思。
 
-To begin with we note that flattening is a linear operation, and hence can be represented as a simple tensor.
-We'll use a triangle to denote this:
+首先注意，展平是一个线性操作，因此可以表示成一个简单的张量。
+我们用三角形表示它：
 \[
    \triangleright_{i,j,k}=
 \begin{tikzpicture}[baseline=-.25em]
@@ -25,11 +25,11 @@ We'll use a triangle to denote this:
 = [i + j n = k]
 .
 \]
-Here $n$ is the dimension of the $i$ edge.
-Note we use a double line to denote the output of the flattening operation.
-This is simply a syntactic choice to remind ourselves that the output is a bundle of two edges.
+这里 $n$ 是 $i$ 边的维度。
+注意，我们用双线表示展平操作的输出。
+这只是一个记法选择，用来提醒自己：输出是一束由两条边组成的边。
 
-Using this notation we can write
+用这个记号可以写成
 \[
    \mathrm{vec}(X)_k
    = \sum_{i,j} \triangleright_{i,j,k} X_{i,j}
@@ -44,7 +44,7 @@ Using this notation we can write
    .
 \]
 %The basic property of $\triangleright$ is that opposing triangles cancel:
-Some basic properties of $\triangleright$:
+$\triangleright$ 的一些基本性质如下：
 \begin{align}
    \begin{tikzpicture}[baseline=-.3em]
    \node (X) at (.5,0) {\phantom{X}};
@@ -152,8 +152,8 @@ Some basic properties of $\triangleright$:
    \end{tikzpicture}
 \end{align}
 
-\section{The Kronecker Product}
-The Kronecker product of an $m\times n$ matrix $A$ and an $r \times q$ matrix $B$, is an $mr \times nq$ matrix, $A \otimes B$ defined as
+\section{Kronecker 积}
+一个 $m\times n$ 矩阵 $A$ 与一个 $r \times q$ 矩阵 $B$ 的 Kronecker 积，是如下定义的 $mr \times nq$ 矩阵 $A \otimes B$：
 \[
    \renewcommand*{\arraystretch}{1.3}
    A \otimes B = \begin{bmatrix}
@@ -164,10 +164,10 @@ The Kronecker product of an $m\times n$ matrix $A$ and an $r \times q$ matrix $B
    \end{bmatrix}
    .
 \]
-Using index notation we can also write this as
-$(A\otimes B)_{p(r-1)+v, q(s-1)+w} = A_{rs} B_{vw}$, but it's pretty hard to read.
+用指标记号也可以把它写成
+$(A\otimes B)_{p(r-1)+v, q(s-1)+w} = A_{rs} B_{vw}$，但这很难读。
 
-In tensor notation the Kronecker Product is simply the outer product of two matrices, flattened ``on both sides'':
+在张量记号中，Kronecker 积只是两个矩阵的外积，并且在“两侧”都做展平：
 $A\otimes B=$
 \begin{tikzpicture}[baseline=-.25em]
    \node[triangle, rotate=180] (F0) at (0,0) {};
@@ -181,7 +181,7 @@ $A\otimes B=$
 \end{tikzpicture}
 .
 
-The Kronecker product has the following properties:
+Kronecker 积有如下性质：
 \begin{walign}
    \tag{506}
    A \otimes (B + C) &= A \otimes B + A \otimes C
@@ -425,7 +425,7 @@ The Kronecker product has the following properties:
     \trace{B}{1}
    \hspace{-1em}
 \end{walign}
-Recalling the eigen decomposition of a matrix, \eqref{eq:eigen-decomposition}, we also get:
+回忆矩阵的特征分解 \eqref{eq:eigen-decomposition}，还可以得到：
 \begin{walign}
    \tag{519}
    \mathrm{eig}(A \otimes B) &= \mathrm{eig}(A) \mathrm{eig}(B)
@@ -497,7 +497,7 @@ Recalling the eigen decomposition of a matrix, \eqref{eq:eigen-decomposition}, w
       \draw (Fb) -- ++(.1, -.25) node[anchor=north west] {$\lambda_2$};
    \end{tikzpicture}
 \end{walign}
-where the last step is due to \eqref{eq:tensor_diag}.
+其中最后一步来自 \eqref{eq:tensor_diag}。
 
 % Here the last equation shows an interesting general property of $\triangleright$:
 % \begin{align}
@@ -527,7 +527,7 @@ where the last step is due to \eqref{eq:tensor_diag}.
 %    \end{tikzpicture}.
 %    \label{eq:tensor_diag}
 % \end{align}
-This is easier to see when we consider that
+如果考虑
 $
    V =
 \begin{tikzpicture}[baseline=-.5em, inner sep=1pt, outer sep=0pt]
@@ -542,13 +542,13 @@ $
       \draw (M) -- (b2);
    \end{tikzpicture}
 $
-represents the tensor where $V_{i,j,i,j} = M_{i,j}$ and 0 otherwise.
-So flattening $V$ on both sides is the same as $\mathrm{diag}(\mathrm{vec}(M))$.
+表示满足 $V_{i,j,i,j} = M_{i,j}$、其余分量为 0 的张量，这一点会更容易看清。
+因此，对 $V$ 的两侧做展平就等同于 $\mathrm{diag}(\mathrm{vec}(M))$。
 
 
-\section{The Vec Operator}
+\section{Vec 算子}
 
-The vec-operator applied on a matrix $A$ stacks the columns into a vector, i.e. for a $2\times 2$ matrix
+Vec 算子作用在矩阵 $A$ 上时，会把各列堆叠成一个向量；也就是说，对于一个 $2\times 2$ 矩阵，
 \[
    \renewcommand*{\arraystretch}{1.3}
    A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}
@@ -556,7 +556,7 @@ The vec-operator applied on a matrix $A$ stacks the columns into a vector, i.e. 
    \mathrm{vec}(A) = \begin{bmatrix} A_{11} \\ A_{21} \\ A_{12} \\ A_{22} \end{bmatrix}
 \]
 
-At the start of the chapter we showed how to represent the vec-operator using the flattening tensor:
+在本章开头，我们已经展示了如何用展平张量表示 Vec 算子：
 $
    \mathrm{vec}(X)
    =
@@ -568,7 +568,7 @@ $
       \draw[double] (c0) -- ++(.5, 0);
    \end{tikzpicture}
 $.
-The Matrix Cookbook gives the following properties of the vec-operator:
+The Matrix Cookbook 给出了 Vec 算子的如下性质：
 
 \begin{walign}
    \tag{520}
@@ -710,10 +710,10 @@ The Matrix Cookbook gives the following properties of the vec-operator:
    \end{tikzpicture}
 \end{walign}
 
-\section{Kronecker Vector Product}
+\section{Kronecker 向量积}
 
-Sometimes it's convenient to write the Kronecker product between two vectors as a matrix.
-We define
+有时，把两个向量之间的 Kronecker 积写成矩阵会更方便。
+定义
 \begin{align}
    A \otimes v
    &=
@@ -761,7 +761,7 @@ We define
    \end{tikzpicture}
 \end{align}
 
-Similarly, we can define the Kronecker product between two vectors:
+类似地，我们可以定义两个向量之间的 Kronecker 积：
 \begin{align}
    v \otimes w
    &=
@@ -788,35 +788,35 @@ Similarly, we can define the Kronecker product between two vectors:
 
 % TODO: Which of the identities 506-515 hold for the Kronecker product of vectors?
 
-\section{General Matrification}
+\section{一般矩阵化}
 
-The last equation is an example of a general idea:
-Any tensor network can be transformed into a series of matrix multiplications by applying the vec-operator to all tensors and the flattening tensor to all edges.
-For example, the following complicated graph:
+最后一个方程体现了一个一般思想：
+对所有张量应用 Vec 算子、对所有边应用展平张量，就可以把任意张量网络转换成一串矩阵乘法。
+例如，下面这个复杂的图：
 \begin{center}
    \def\svgwidth{.7\linewidth}
    \import{figures/}{kron.pdf_tex}
 \end{center}
-Can be written as a simple vector-matrix-matrix-vector product, $a M_1 M_2 b$,
-where $M_1 = \mathrm{vec}(B) \otimes C'$,
-$M_2 = E' \otimes D' \otimes I$ and $b = f\otimes g\otimes \mathrm{vec}(H)$,
-where $C'$, $D'$ and $E'$ are rank 3 tensors flattened on one side, and $\mathrm{vec}(B)$ is interpreted as a matrix with a single column.
+可以写成一个简单的向量-矩阵-矩阵-向量乘积 $a M_1 M_2 b$，
+其中 $M_1 = \mathrm{vec}(B) \otimes C'$，
+$M_2 = E' \otimes D' \otimes I$ 且 $b = f\otimes g\otimes \mathrm{vec}(H)$。
+这里 $C'$、$D'$ 和 $E'$ 是在一侧展平的三阶张量，而 $\mathrm{vec}(B)$ 被解释为只有一列的矩阵。
 
 
-\subsection{The Lyapunov Equation}
+\subsection{Lyapunov 方程}
 
-A nice application of Kronecker product rewritings is to solve equations like
+Kronecker 积重写的一个漂亮应用，是求解如下方程：
 \begin{walign}
    \tag{272}
    AX + XB = C.
 \end{walign}
-We use the rewriting
+我们使用重写
 $
    \mathrm{vec}(AX + XB)
    =
    (I \otimes A + B^T \otimes I)\mathrm{vec}(X)
 $,
-which follows from the tensor diagram massaging:
+它来自如下张量图变形：
 \[
 \begin{tikzpicture}[baseline=-.25em]
    \node at (-1,0) {$\bigg($};
@@ -880,14 +880,14 @@ which follows from the tensor diagram massaging:
       \draw[double, shorten <=-6pt] (br) -- ++(.2,0);
    \end{tikzpicture}
 \]
-after which we can take the normal matrix inverse to get
+之后取通常意义下的矩阵逆，就得到
 \begin{walign}
    \tag{273}
    \mathrm{vec}(X) = (I \otimes A + B^T \otimes I)^{-1}\mathrm{vec}(C).
 \end{walign}
 
-\subsection{Encapsulating Sum}
-This is a generalization of the previous equation.
+\subsection{封装求和}
+这是前一个方程的推广。
 \begin{walign}
    \tag{274}
    \sum_n A_nXB_n &= C \\
@@ -895,13 +895,13 @@ This is a generalization of the previous equation.
    \mathrm{vec}(X) &= (\sum_n B_n^T \otimes A_n)^{-1} \mathrm{vec}(C)
 \end{walign}
 
-\section{The Hadamard Product}
+\section{Hadamard 积}
 \label{sec:hadamard}
 
-The Hadamard product, also known as element-wise multiplication, is not described in the Matrix Cookbook.
-Yet, it is a very useful operation, and has some interesting properties in connection with the Kronecker product.
+Hadamard 积也称为逐元素乘法，The Matrix Cookbook 中没有介绍它。
+不过，它是一个非常有用的操作，并且有一些与 Kronecker 积相关的有趣性质。
 
-We define the Hadamard product of two $2\times 2$ matrices $A$ and $B$ as
+两个 $2\times 2$ 矩阵 $A$ 和 $B$ 的 Hadamard 积定义为
 \[
    \renewcommand*{\arraystretch}{1.3}
    A \circ B = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix} \circ
@@ -909,7 +909,7 @@ We define the Hadamard product of two $2\times 2$ matrices $A$ and $B$ as
             = \begin{bmatrix} A_{11}B_{11} & A_{12}B_{12} \\ A_{21}B_{21} & A_{22}B_{22} \end{bmatrix}
    .
 \]
-In tensor notation, the Hadamard product can be represented using two rank-3 copy tensors:
+在张量记号中，Hadamard 积可以用两个三阶复制张量表示：
 \[
    A \circ B
    =
@@ -925,7 +925,7 @@ In tensor notation, the Hadamard product can be represented using two rank-3 cop
    \end{tikzpicture}
 .
 \]
-Some properties of the Hadamard product are:
+Hadamard 积的一些性质如下：
 \begin{walign}
    x^T (A \circ B) y
    &= \mathrm{tr}(A^T D_x B D_y)
@@ -1004,14 +1004,14 @@ Some properties of the Hadamard product are:
       \draw (Fcd0) -- (D) -- (Fcd1);
    \end{tikzpicture}
 \end{walign}
-The first equation is simply massaging the tensor diagram.
-The second follows from \eqref{eq:flatten_mix}.
-Alternatively, it suffices to follow the double lines to see that $A$ and $C$ both use the ``upper'' part of the double edge, while $B$ and $D$ use the lower part.
+第一个方程只是对张量图做变形。
+第二个方程来自 \eqref{eq:flatten_mix}。
+另一种看法是，只要沿着双线追踪即可：$A$ 和 $C$ 都使用双边的“上”半部分，而 $B$ 和 $D$ 使用下半部分。
 
 
-\section{Khatri–Rao product}
-Also known as the column-wise Kronecker, row-wise Kronecker or ``Face-splitting Product''.
-We use the symbols $\ast$ and $\bullet$ for the column and row-wise Kronecker products, respectively.
+\section{Khatri-Rao 积}
+它也称为按列 Kronecker、按行 Kronecker 或“Face-splitting Product”。
+我们分别用符号 $\ast$ 和 $\bullet$ 表示按列与按行 Kronecker 积。
 \begin{walign}
    A \ast B &=
    \renewcommand*{\arraystretch}{1.3}
@@ -1043,7 +1043,7 @@ We use the symbols $\ast$ and $\bullet$ for the column and row-wise Kronecker pr
    \end{bmatrix}
 \end{walign}
 
-In terms of tensor diagrams, these products correspond simply to flattening the product on one side, and using a copy tensor on the other:
+用张量图来说，这些积只是在乘积的一侧做展平，并在另一侧使用复制张量：
 \begin{walign}
    A \ast B &=
    \begin{tikzpicture}[baseline=-.25em]
@@ -1069,10 +1069,10 @@ In terms of tensor diagrams, these products correspond simply to flattening the 
       \draw[double] (c1) -- ++(.4,0);
    \end{tikzpicture}
 \end{walign}
-Clearly the two are identical up to transpose.
-Indeed, $(A \ast B)^T = B^T \bullet A^T$ and $(A \bullet B)^T = B^T \ast A^T$.
+显然，二者只差一个转置。
+事实上，$(A \ast B)^T = B^T \bullet A^T$ 且 $(A \bullet B)^T = B^T \ast A^T$。
 
-There are multiple ``mixed product'' identities:
+存在多个“混合乘积”恒等式：
 \begin{walign}
    (A \bullet B)(C \otimes D) &= (A C) \bullet (B D)
                               &
@@ -1218,13 +1218,13 @@ There are multiple ``mixed product'' identities:
 % This product preserves the block structure of the matrices.
 % See https://arxiv.org/pdf/1903.01366
 
-\subsection{Concatenation}
+\subsection{拼接}
 
-If two tensors have matching shapes, we can concatenate them along an axis.
-An easy way to do this is taking the outer product with a vector that selects the location in the new axis, and them add them together.
-Define $e^{(i)}$ to be the vector of length $2$ with a 1 in the $i$-th position and 0 elsewhere.
-I.e. $e^{(0)} = [1, 0]$ and $e^{(1)} = [0, 1]$.
-Then we can define
+如果两个张量的形状匹配，就可以沿某个轴把它们拼接起来。
+一种简单做法是，分别与一个选择新轴中位置的向量取外积，然后把结果相加。
+定义 $e^{(i)}$ 为长度为 $2$ 的向量，它在第 $i$ 个位置为 1，其余位置为 0。
+也就是说，$e^{(0)} = [1, 0]$ 且 $e^{(1)} = [0, 1]$。
+于是可以定义
 \[
 \mathrm{cat}_i(X, Y)
 =
@@ -1250,9 +1250,9 @@ Then we can define
 .
 \]
 
-For matrices and vectors, we often write concatenation using bars, like:
-$\mathrm{stack}_i(A, B) = A\mid B$ and $\mathrm{stack}_j(A, B) = A \mid B$.
-From this we get the identity
+对于矩阵和向量，我们常用竖线来表示拼接，例如：
+$\mathrm{stack}_i(A, B) = A\mid B$ 和 $\mathrm{stack}_j(A, B) = A \mid B$。
+由此得到恒等式
 \begin{align*}
 \left(A \mid C\right) \left(\frac{B}{D}\right)
 &=
@@ -1349,16 +1349,16 @@ From this we get the identity
 \\&=
 AB + CD,
 \end{align*}
-since $e^{(0)}-e^{(0)}=e^{(1)}-e^{(1)}=1$,
-and $e^{(0)}-e^{(1)}=0$.
+因为 $e^{(0)}-e^{(0)}=e^{(1)}-e^{(1)}=1$，
+且 $e^{(0)}-e^{(1)}=0$。
 
-The stacking operation is closely related to the direct sum of matrices. The direct sum $A \oplus B$ of two matrices creates a block diagonal matrix:
+堆叠操作与矩阵的直和密切相关。两个矩阵的直和 $A \oplus B$ 会产生一个块对角矩阵：
 \[
    \renewcommand*{\arraystretch}{1.3}
 A \oplus B = \begin{bmatrix} A & 0 \\ 0 & B \end{bmatrix}
 \]
 
-In tensor diagram notation, we can express the direct sum using a construction similar to stacking:
+在张量图记号中，可以用类似堆叠的构造来表示直和：
 \[
 A \oplus B =
 \begin{tikzpicture}[baseline=.25em, inner sep=1pt]
@@ -1394,10 +1394,10 @@ A \oplus B =
 
 % This is the tensor product (outer product) of three tensors: $e^{(0)} \otimes A \otimes e^{(0)} + e^{(1)} \otimes B \otimes e^{(1)}$.
 
-The construction makes it clear that the direct sum places $A$ in the upper-left block (when $i=j=0$) and $B$ in the lower-right block (when $i=j=1$), with zeros elsewhere.
-This connection is particularly important in quantum computing, where this operation is known as "controlling" - applying different operations based on the state of a control qubit.
+这个构造清楚地表明，直和会把 $A$ 放在左上块（当 $i=j=0$ 时），把 $B$ 放在右下块（当 $i=j=1$ 时），其他位置为零。
+这种联系在量子计算中尤其重要，在那里这个操作称为“控制”（controlling）：根据控制量子比特的状态应用不同操作。
 
-More generally, for multiple matrices:
+更一般地，对多个矩阵有：
 \[
 \bigoplus_{k} A_k =
 \sum_{k} 
@@ -1416,9 +1416,9 @@ More generally, for multiple matrices:
 \end{tikzpicture}
 ,
 \]
-where we define $e^{(k)}$ as a vector of length $n$ with a 1 in the $k$-th position and 0 elsewhere, for $k = 0, 1, \ldots, n-1$.
+其中 $e^{(k)}$ 定义为长度为 $n$ 的向量，它在第 $k$ 个位置为 1，其余位置为 0，$k = 0, 1, \ldots, n-1$。
 
-The direct sum satisfies several properties with respect to the Kronecker product:
+直和相对于 Kronecker 积满足若干性质：
 \begin{walign}
    \tag{yyy}
    \begin{array}{c}
@@ -1620,26 +1620,28 @@ The direct sum satisfies several properties with respect to the Kronecker produc
 \end{walign}
 
 
-\section{Derivatives}
+\section{导数}
 
 
-\section{Exercises}
+\section{练习}
 \begin{exercise}
-Let $
+设
+$
 J = \mathrm{Tr}\lbrack(I_N \otimes F)^{T}A(I_N \otimes F)B\rbrack
-$ where $F \in \mathbb{R}^{N \times Nn},\ \  A \in \mathbb{R}^{N^2 \times N^2},\ B \in \mathbb{R}^{N^2 n \times N^2 n}$.
-Find the derivative of $J$ with respect to $F$.
+$
+，其中 $F \in \mathbb{R}^{N \times Nn},\ \  A \in \mathbb{R}^{N^2 \times N^2},\ B \in \mathbb{R}^{N^2 n \times N^2 n}$。
+求 $J$ 关于 $F$ 的导数。
 \end{exercise}
 
 
 \begin{exercise}
-Consider $ J = \|G - ( B \otimes X )\|_F^2 $, where $G$ and $B$ are matrices, and $\|\cdot\|_F$ is the Frobenius norm. Find the derivative with respect to $X$
+考虑 $ J = \|G - ( B \otimes X )\|_F^2 $，其中 $G$ 和 $B$ 是矩阵，$\|\cdot\|_F$ 是 Frobenius 范数。求它关于 $X$ 的导数。
 \end{exercise}
 
 \begin{exercise}
-Prove the equation~\cite{2993406}:
+证明方程~\cite{2993406}：
 \[\text{vec}(A\, \text{diag}(b)\, C)=((C^T\otimes 1) \circ (1 \otimes A)) b.\]
-Here $\text{diag}(b)$ is a diagonal matrix with the vector $b$ on the diagonal, $1$ is a vector of ones of the right size, and $b \otimes A$, the Kronecker product for a vector and a matrix, is defined by $\begin{tikzpicture}[baseline=-.25em, inner sep=0pt]
+这里 $\text{diag}(b)$ 是以向量 $b$ 为对角线的对角矩阵，$1$ 是尺寸合适的全 1 向量，而 $b \otimes A$，即向量与矩阵的 Kronecker 积，定义为 $\begin{tikzpicture}[baseline=-.25em, inner sep=0pt]
       \node[triangle, rotate=180, inner sep=3pt] (flat) at (0,0) {};
       \node (A) at (.5,-.15) {$A$};
       \node (B) at (.5,.15) {$b$};
@@ -1647,28 +1649,28 @@ Here $\text{diag}(b)$ is a diagonal matrix with the vector $b$ on the diagonal, 
       \draw (flat) -- (A) -- ++(.4,0);
       \draw (flat) -- (B);
    \end{tikzpicture}$,
-that is, you just flatten on one side.
+也就是说，只在一侧做展平。
 \end{exercise}
 
 \begin{exercise}
-   Let $a$ and $b$ be two vectors and let $D$ and $X$ be two matrices.
-   Minimize the following cost function with respect to $X$:
+   设 $a$ 和 $b$ 是两个向量，$D$ 和 $X$ 是两个矩阵。
+   关于 $X$ 最小化如下代价函数：
    \[
       E = \|a - D X b\|_2^2.
    \]
 \end{exercise}
 
 \begin{exercise}
-   Prove using diagrams that $\mathrm{Tr}(A^T B) = 1^T \mathrm{vec}(A \circ B)$,
-   where $1$ is a vector of the appropriate size.
+   用图证明 $\mathrm{Tr}(A^T B) = 1^T \mathrm{vec}(A \circ B)$，
+   其中 $1$ 是尺寸合适的向量。
 \end{exercise}
 
 \begin{exercise}
-   Find the derivative of
+   求
    \[
       \mathrm{Tr}(G(A\otimes X))
    \]
-   with respect to $X$.
+   关于 $X$ 的导数。
 \end{exercise}
 
 \begin{exercise}
@@ -1677,18 +1679,18 @@ that is, you just flatten on one side.
 \end{exercise}
 
 \begin{exercise}
-   Take the derivative of
+   求
    \[
       \mathrm{Tr}(G (A \otimes X))
    \]
-   with respect to $X$, where $G$ is an $\mathbb R^{n^2} \times \mathbb R^{n^2}$ matrix,
-   and $A$ and $X$ are $\mathbb R^{n \times n}$ matrices.
+   关于 $X$ 的导数，其中 $G$ 是一个 $\mathbb R^{n^2} \times \mathbb R^{n^2}$ 矩阵，
+   而 $A$ 和 $X$ 是 $\mathbb R^{n \times n}$ 矩阵。
 
-   Write the result in terms of $\mathrm{vec}(A)$ a reshaped version of $G$.
+   用 $\mathrm{vec}(A)$ 和 $G$ 的某个重塑版本来写出结果。
 \end{exercise}
 
 \begin{exercise}
-   Verify the following identity:
+   验证如下恒等式：
    \[
       \frac{d}{dx}
       \mathrm{vec}(
@@ -1697,17 +1699,17 @@ that is, you just flatten on one side.
          = \mathrm{diag}(\mathrm{vec}(A)) (I \otimes x + x \otimes I)
          .
    \]
-      Hint: Use the matrix-vector identities \eqref{eq:kronecker-vector}.
+      提示：使用矩阵-向量恒等式 \eqref{eq:kronecker-vector}。
 \end{exercise}
 
 \begin{exercise}
-      Show that
+      证明
       \[
          \frac{\partial}{\partial x} x^T\, A\, (x \otimes x)
          =
          A(x\otimes x) + (x^T \otimes I + I \otimes x^T) A^T x
       \]
-      Hint: Use the matrix-vector identities \eqref{eq:kronecker-vector}.
+      提示：使用矩阵-向量恒等式 \eqref{eq:kronecker-vector}。
 \end{exercise}
 
 % Other good candidates for exercises:

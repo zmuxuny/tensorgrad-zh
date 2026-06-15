@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate remaining disabled book chapters, currently `paper/chapters/kronecker.tex`
+- Translate remaining disabled book chapters, currently `paper/chapters/functions.tex`
 
 ## Done
 
@@ -17,10 +17,11 @@
 - Translated enabled `paper/chapters/statistics.tex`.
 - Translated reader-facing `README.md` introduction and examples.
 - Translated disabled `paper/chapters/simple_derivatives.tex`.
+- Translated disabled `paper/chapters/kronecker.tex`.
 
 ## Next
 
-- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `kronecker.tex`.
+- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `functions.tex`.
 - Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open
