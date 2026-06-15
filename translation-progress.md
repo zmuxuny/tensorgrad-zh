@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate remaining disabled book chapters, currently `paper/chapters/tensorgrad.tex`
+- Prepare full-book enablement, cross-reference cleanup, and final build verification.
 
 ## Done
 
@@ -20,11 +20,14 @@
 - Verified `ml.tex` by temporarily enabling it in `cookbook.tex`.
 - Translated disabled `paper/chapters/tensor_algos.tex`.
 - Verified `tensor_algos.tex` by temporarily enabling it in `cookbook.tex`; this resolves `sec:opt_contr` while enabled.
+- Translated disabled `paper/chapters/tensorgrad.tex`.
+- Verified `tensorgrad.tex` by temporarily enabling it in `cookbook.tex`; final main build restored enabled chapter set and succeeds.
 
 ## Next
 
-- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `tensorgrad.tex`.
-- Rebuild PDF after each large chapter or build-affecting change.
+- Decide whether to enable all translated chapters in `paper/cookbook.tex` for the final Chinese book.
+- Run full-book XeLaTeX build and resolve build-breaking issues.
+- Do final terminology/cross-reference/passive English residue checks.
 
 ## Open
 

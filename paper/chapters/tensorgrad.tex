@@ -1,55 +1,54 @@
 
 \chapter{Tensorgrad}
 
-Implementation details
+实现细节
 
-\section{Isomorphisms}
-There is actually a concept of ``tensor isomorphism'', but it's basically just the same as graph isomorphism.
+\section{同构}
+实际上存在“张量同构”（tensor isomorphism）的概念，但它基本上与图同构相同。
 
-We need to understand isomorphisms in many different parts of the code.
+我们需要在代码的许多不同部分理解同构。
 
-\subsection{In Products}
-- Cancelling / combining equal parts of a product
-This is actually extra hard, because you have to collect a subset of nodes that constitute isomorphic subgraphs.
-Right now we hack this a bit by just considering separate components of the product.
+\subsection{在乘积中}
+- 消去 / 合并乘积中的相同部分
+这其实格外困难，因为必须收集构成同构子图的一组节点。
+目前我们稍微取巧，只考虑乘积中的独立连通分量。
 
 \begin{figure}[h]
 \centering{
 \def\svgwidth{\linewidth}
 \import{figures/}{power.pdf_tex}
-\caption{Combining equal parts of a product}
+\caption{合并乘积中的相同部分}
 \label{fig:power}
 }
 \end{figure}
 
-Basically the problem is:
+这个问题基本上是：
 \begin{enumerate}
-   \item You are given a multigraph $G$ with nodes $V$ and edges $E$.
-   \item Nodes and edges are all labeled.
-   \item You are to find two disjoint subsets $V_1$ and $V_2$ of $V$ such that the subgraphs $G_1$ and $G_2$ induced by $V_1$ and $V_2$ are isomorphic.
-      Also, under the isomorphism, the labels of the nodes and edges in $G_1$ and $G_2$ are the same.
+   \item 给定一个多重图 $G$，其节点为 $V$、边为 $E$。
+   \item 节点和边都有标签。
+   \item 要找到 $V$ 的两个不相交子集 $V_1$ 和 $V_2$，使得由 $V_1$ 和 $V_2$ 诱导出的子图 $G_1$ 和 $G_2$ 同构。
+      此外，在该同构下，$G_1$ 和 $G_2$ 中节点与边的标签相同。
 \end{enumerate}
 
-The problem is probably NP-hard, but it might still have an algorithm that's faster than
-$2^n$ trying all subsets.
-In particular, we might modify the VF2 algorithm, which iteratively tries to match nodes in $G_1$ and $G_2$.
-The NetworkX library already has a GraphMatcher, which searches for isomoprhic subgraphs.
-It might be extendable to our problem...
-But honestly I don't know if we even want to solve this problem in the most general, since it corresponds a bit to factoring the graph.
-And we don't do factoring, just as we don't do inverse distribution.
+这个问题很可能是 NP-hard 的，但也许仍然存在比尝试所有子集的 $2^n$ 更快的算法。
+特别是，我们可以修改 VF2 算法；该算法会迭代地尝试匹配 $G_1$ 和 $G_2$ 中的节点。
+NetworkX 库已经有一个 GraphMatcher，可以搜索同构子图。
+它也许可以扩展到我们的问题……
+但老实说，我不知道我们是否真的想在最一般的情形下解决这个问题，因为它有点对应于对图做因式分解。
+而我们并不做因式分解，就像我们不做逆分配律一样。
 
-In either case, it's clear that we need to be able to compare nodes and edges for isomorphism.
+无论如何，显然我们需要能够按同构来比较节点和边。
 
-Also, the basic usecase of isomorphism canonaization in products is simply to compute the canonical product itself from its parts.
-Part of our approach here is taking the outer edges and turning them into nodes, so they can be colored.
+此外，乘积中同构规范化的基本用例，只是根据各个部分计算乘积本身的规范形式。
+这里我们方法的一部分，是把外部边转成节点，从而可以给它们着色。
 
-\subsection{In Sums}
+\subsection{在求和中}
 
-When deciding whether $A + B$ is equal to $2A$ we need to check if $A$ and $B$ are isomorphic.
-But we also need to do this under the current renaming of the edges.
-That's why you can't just transform $A + A^T = 2A$.
+在判断 $A + B$ 是否等于 $2A$ 时，需要检查 $A$ 和 $B$ 是否同构。
+但我们还必须在当前边重命名下完成这件事。
+这就是为什么不能直接把 $A + A^T$ 变成 $2A$。
 
-The way it actually works in my code is
+我的代码中实际的工作方式是
 \begin{lstlisting}
 def key_fn(t: Tensor):
     # Align tensor edges to have the same order, using Sum's order as reference.
@@ -61,10 +60,10 @@ for w, t in zip(weights, tensors):
     ws_tensors[t] += w
 ws_tensors = [(w, t) for t, w in ws_tensors.items()]
 \end{lstlisting}
-which says that I'm using for a hash, the canonical form of the tensor, plus the canonical form of the edges in the order of the edges in the sum.
-These are basically the orbits, meaning that if the summed tensor has a symmetry, we are allowed to "flip" it to make the summands isomorphic.
+这表示我用于 hash 的内容，是张量的规范形式，加上按照求和中边顺序排列的边的规范形式。
+这些基本上就是轨道；这意味着如果被求和的张量具有某种对称性，我们就允许“翻转”它，从而使各项同构。
 
-In the ``compute canonical'' method, we do more or less the same, but we also include the weights.
+在 “compute canonical” 方法中，我们做的事情大致相同，但还会包含权重。
 \begin{lstlisting}
 def _compute_canonical(self):
     hashes = []
@@ -76,91 +75,90 @@ def _compute_canonical(self):
     return base, hashes
 \end{lstlisting}
 
-In the future we want to use symmetry groups instead.
-What would be the symmetry group of a sum?
-It's the diagonal of the product of the symmetry groups of the summands.
-How can we find the generators of this group?
-Maybe we should just construct some joint graph and then find the automorphisms of that graph.
+将来我们想改用对称群。
+求和的对称群会是什么？
+它是各个求和项对称群乘积的对角部分。
+怎样才能找到这个群的生成元？
+也许应该直接构造某个联合图，然后寻找该图的自同构。
 
-Alternatively we can use sympy.
-It is not known whether this problem is solvable in polynomial time. I think Babai proved that it is quasi-polynomial but not with a practical algorithm. Incidentally the problems of intersections of subgroups, centralizers of elements, and stabilizers of subsets of $\{1, \dots, n\}$ have been proved (by Eugene Luks) to be polynomially equivalent.
-
-
-Actually making a graph and using nauty is a really good idea, since it would
-be able to detect that $A+A^T$ is symmetric.
-Just taking the intersection of the automorphism groups of the summands would not find that.
-
-Another option is to convert the sum to a function...
-But no, that's weird.
-That would require me to support functions with arbitrary numbers of inputs, which is not currently the case.
+另一种选择是使用 sympy。
+目前尚不清楚这个问题是否可以在多项式时间内求解。我认为 Babai 证明了它是准多项式的，但该算法并不实用。顺带一提，子群交、元素中心化子以及 $\{1, \dots, n\}$ 子集稳定子这些问题已经被证明（由 Eugene Luks 证明）在多项式意义下等价。
 
 
+实际上，构造一个图并使用 nauty 是个很好的想法，因为它能够检测出 $A+A^T$ 是对称的。
+仅取各个求和项自同构群的交集并不能发现这一点。
 
-\subsection{In Evaluation}
-When evaluating a tensor, we can look at the graph of the tensor and see if it's isomorphic to a previously evaluated tensor.
-This is an example where we don't really need a canonical form, but an approximate hash plus vf2 would be fine.
-Also note that in this case we don't care about the edge renaming, because we can just rename the edges before we return the tensor.
-E.g. if we have already evaluated $A$, we can use that to get $A^T$ easily.
+另一种选择是把求和转换成一个函数……
+但不，这有点奇怪。
+那会要求我支持任意数量输入的函数，而目前还不是这样。
 
-\subsection{In Variables}
-In variables we include the name of the variable in the hash.
-Basically we assume that variables named the same refer to the same data.
+
+
+\subsection{在求值中}
+在对张量求值时，可以查看该张量的图，并判断它是否同构于先前已经求值过的某个张量。
+这是一个并不真正需要规范形式的例子；近似 hash 加上 vf2 就足够了。
+还要注意，在这种情况下我们并不关心边的重命名，因为可以在返回张量之前直接重命名边。
+例如，如果已经求值过 $A$，就可以很容易用它得到 $A^T$。
+
+\subsection{在变量中}
+在变量中，我们把变量名包含进 hash。
+基本上，我们假设同名变量指向同一份数据。
 \begin{lstlisting}
    base = hash(("Variable", self.name))
    return base, [hash((base, e)) for e in self.original_edges]
 \end{lstlisting}
-For the original canonical edge names, we use the edge names before renaming.
-This means, in the case of $A^T$ that will have the same hash as $A$.
-But because it's renamed, the \texttt{t.index} call in the Sum will flip the edges.
+对于原始规范边名，我们使用重命名前的边名。
+这意味着在 $A^T$ 的情形下，它会与 $A$ 具有相同的 hash。
+但因为它已经被重命名，Sum 中的 \texttt{t.index} 调用会翻转这些边。
 
-We could imagine variables taking an automorphism group as an argument, which would allow us to define variables with different symmetries.
-Such as a symmetric matrix $A$ where $A+A^T$ is actually $2A$.
+可以设想让变量接收一个自同构群作为参数，这样就能定义具有不同对称性的变量。
+例如一个对称矩阵 $A$，此时 $A+A^T$ 实际上就是 $2A$。
 
-\subsection{In Constants}
-When computing the canonical form of a constant, like \texttt{Zero} or \texttt{Copy} we don't care about the edge names.
-I guess because the constants we use are all maximally symmetric?
-We currently include the constants \texttt{tag}, which is the hash of the variable that it came from, if any.
+\subsection{在常量中}
+在计算 \texttt{Zero} 或 \texttt{Copy} 这类常量的规范形式时，我们并不关心边名。
+我猜这是因为我们使用的常量都是最大对称的？
+目前我们会包含常量的 \texttt{tag}；如果它来自某个变量，那么这个 tag 就是该变量的 hash。
 
-\subsection{In Functions}
-One issue is that while the original names are usually part of the function definition,
-the new edges added by differentiation are often automatically generated based on the context,
-so they shouldn't really be part of the canonical form.
+\subsection{在函数中}
+一个问题是，原始名称通常是函数定义的一部分，
+而求导新增的边往往是根据上下文自动生成的，
+因此它们其实不应该成为规范形式的一部分。
 
-In contrast to Sum, we don't sort the canons here, since the order of the inputs matters.
+与 Sum 不同，这里我们不会对规范名排序，因为输入顺序是重要的。
 
-Maybe functions should be allowed to transform the symmetry group?
-E.g. if we have a function that takes a symmetric matrix and returns a symmetric matrix, we should be able to use the symmetry group of the input to simplify the output.
+也许应该允许函数变换对称群？
+例如，如果有一个函数接收对称矩阵并返回对称矩阵，那么我们应当能使用输入的对称群来化简输出。
 
-\subsection{In Derivatives}
-All we do is hashing the tensor and the wrt.
-And then add new edges for the derivative.
+\subsection{在导数中}
+我们所做的只是对张量和 wrt 做 hash。
+然后为导数添加新边。
 
-\subsection{Other}
-For some tensors there might be edge dimension relations that aren't equivalences.
-For example, a flatten tensor would have the ``out'' edge dimension equal to the product of the ``in'' edge dimensions.
+\subsection{其他}
+对于某些张量，可能存在并非等价关系的边维度关系。
+例如，一个 flatten 张量会让 “out” 边维度等于各个 “in” 边维度的乘积。
 
-In a previous version I had every tensor register a ``callback'' function.
-Whenever an edge dimension ``became available'', the tensor would get a chance to emit new edge dimensions.
-However, this was a lot more work for each tensor to implement, and not needed for any of the existing tensors.
+在之前的版本中，我让每个张量都注册一个“回调”（callback）函数。
+每当某个边维度“变得可用”时，该张量就有机会发出新的边维度。
+然而，这会给每个张量的实现增加很多工作，而且现有张量都不需要它。
 
-\section{Renaming}
-This is an important part of the code.
+\section{重命名}
+这是代码中一个重要部分。
 
-\section{Evaluation}
+\section{求值}
 
-An important part of evaluation is determining the dimension of each edge.
-To do this, I'm basically creating a full graph of the tensor, using a function called
-\texttt{edge\_equivalences} which a list of tuples $((t_1, e_1), (t_2, e_2))$,
-indicating that edge $e_1$ of tensor $t_1$ is equivalent to edge $e_2$ of tensor $t_2$.
-Note that the same edge name can appear multiple times in the graph, so we need to keep track of the tensor as well.
+求值中的一个重要部分是确定每条边的维度。
+为此，我基本上会构造张量的完整图，并使用一个名为
+\texttt{edge\_equivalences} 的函数，它给出一列元组 $((t_1, e_1), (t_2, e_2))$，
+表示张量 $t_1$ 的边 $e_1$ 等价于张量 $t_2$ 的边 $e_2$。
+注意，同一个边名可能在图中出现多次，因此也需要跟踪张量本身。
 
-For variables, since the user gives edge dimensions in terms of variables, it's important to keep track of renamed edge names:
+对于变量，由于用户以变量形式给出边维度，因此跟踪重命名后的边名很重要：
 \begin{lstlisting}
 for e1, e2 in zip(self.original_edges, self.edges):
      yield (self, e1), (self, e2)
 \end{lstlisting}
 
-For constants, there might be some equivalences based on tensors that the constant was derived from.
+对于常量，可能存在一些基于该常量来源张量的等价关系。
 \begin{lstlisting}
 def edge_equivalences(self):
     if self.link is not None:
@@ -170,7 +168,7 @@ def edge_equivalences(self):
                 yield (self, e), (self.link, e)
 \end{lstlisting}
 
-For the copy tensor, everything is equivalent:
+对于复制张量，所有边都是等价的：
 \begin{lstlisting}
 def edge_equivalences(self):
     yield from super().edge_equivalences()
@@ -178,8 +176,8 @@ def edge_equivalences(self):
         yield (self, self.edges[0]), (self, e)
 \end{lstlisting}
 
-For functions we can't really say anything about the edges of the function itself \texttt{(self.edges\_out)},
-but at least we can say something about the broadcasted edges.
+对于函数，我们实际上无法对函数自身的边 \texttt{(self.edges\_out)} 说什么，
+但至少可以对广播边说一些事情。
 \begin{lstlisting}
 for t, *inner_edges in self.inputs:
     yield from t.edge_equivalences()
@@ -187,10 +185,10 @@ for t, *inner_edges in self.inputs:
         if e not in inner_edges:
             yield (t, e), (self, e)
 \end{lstlisting}
-We could maybe also say that input edges with the same name are equivalent?
+也许还可以说同名输入边是等价的？
 
-For products, we look at each edge $(t_1, e, t_2)$ and yield $(t_1, e), (t_2, e)$.
-However for the free edges, $(t, e)$, we match them with ourselves, $(t, e), (self, e)$.
+对于乘积，我们查看每条边 $(t_1, e, t_2)$，并产生 $(t_1, e), (t_2, e)$。
+不过对于自由边 $(t, e)$，我们会把它们与自身匹配，即 $(t, e), (self, e)$。
 \begin{lstlisting}
 def edge_equivalences(self):
     pairs = defaultdict(list)
@@ -206,7 +204,7 @@ def edge_equivalences(self):
             yield (t1, e), (t2, e)
 \end{lstlisting}
 
-Similarly, for sums, everything is just matched with ourselves:
+类似地，对于求和，一切都只是与自身匹配：
 \begin{lstlisting}
 def edge_equivalences(self):
     for t in self.tensors:
@@ -215,24 +213,24 @@ def edge_equivalences(self):
             yield (t, e), (self, e)
 \end{lstlisting}
 
-Finally, we use BFS to propagate the edge dimensions from the variables (which are given by the user) to the rest of the graph.
+最后，我们使用 BFS 将边维度从变量（由用户给定）传播到图的其余部分。
 
-Why is it even necessary for non-variables to know the edge dimensions?
-Mostly because of copy tensors, which we use for hyper edges, and have to construct.
-Could we get rid of this if we computed hyper-edges more efficiently without copy's?
-There are also sometimes "detached" copies...
+为什么非变量也需要知道边维度？
+主要是因为复制张量：我们会用它们表示超边，并且必须构造它们。
+如果我们不用 copy 而是更高效地计算超边，能否摆脱这一点？
+有时也会出现“分离的”（detached）copy……
 
-Also, an alternative idea would be to actually construct the full graph.
-I originally didn't think this would be possible because of the Sum's which aren't really graphs.
-But maybe with the new approach of using nauty, we could actually do this.
+此外，另一种想法是真正构造完整图。
+我原本认为这不可行，因为 Sum 并不真的是图。
+但也许借助使用 nauty 的新方法，我们实际上可以做到这一点。
 
-\subsection{Products}
-We simply evaluate the tensors in the product and give them to einsum.
+\subsection{乘积}
+我们只需对乘积中的张量求值，并把它们交给 einsum。
 
 
-\section{Simplification Rules}
-There are a bunch of these.
+\section{化简规则}
+这类规则有很多。
 
-Mostly we can do everything in a single depth-first pass,
-but a few times we need to do multiple passes.
-That can be done with the full-simplify method, which repeatedly calls simplify until nothing changes.
+大多数情况下，我们可以在一次深度优先遍历中完成所有事情，
+但有少数时候需要多轮遍历。
+这可以通过 full-simplify 方法完成；它会反复调用 simplify，直到不再发生变化。
