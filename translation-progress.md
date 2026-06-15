@@ -15,11 +15,11 @@
 - Translated enabled `paper/chapters/intro.tex`.
 - Translated enabled `paper/chapters/appendix.tex`.
 - Translated enabled `paper/chapters/statistics.tex`.
+- Translated reader-facing `README.md` introduction and examples.
 
 ## Next
 
 - Translate remaining `paper/chapters/*.tex` in chapter order, starting with `simple_derivatives.tex`.
-- Update README reader-facing introduction after enabled chapters.
 - Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open
