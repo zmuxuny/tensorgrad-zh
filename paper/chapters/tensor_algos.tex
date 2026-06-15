@@ -1,51 +1,51 @@
 
-\chapter{Tensor Algorithms}
+\chapter{张量算法}
 
-\section{Tensor Contraction Orders}\label{sec:opt_contr}
+\section{张量缩并顺序}\label{sec:opt_contr}
 
-Throughout the previous chapters, we drew a \emph{lot} of tensor networks. While the theoretical aspect is sufficient for some applications, there are indeed research areas, mostly computational ones such as quantum circuit simulation, where one wants to actually compute the tensor underlying the tensor network.
-This is done by the so-called \emph{tensor contractions}.
-To see what this means, consider the following 2-tensor diagram, where we contract two tensors $A$ and $B$:
+在前面的章节中，我们画了\emph{大量}张量网络。虽然理论层面对某些应用已经足够，但确实存在一些研究领域，主要是量子线路模拟这类计算型领域，需要真正计算张量网络背后的张量。
+这通过所谓的\emph{张量缩并}来完成。
+为了理解它的含义，考虑下面这个 2-张量图，其中我们缩并两个张量 $A$ 和 $B$：
 \begin{center}
     \resizebox{0.44\textwidth}{!}{
         \input{figures/contraction_1}
     }
 \end{center}
-Note that we also write the sizes of the respective dimensions, i.e., $A$ is a $2\times 2\times 4$-tensor, while $B$ is a $4 \times 2$-matrix.
-Now, the \emph{contraction cost} is defined as the number of FLOPS performed during the contraction; as a convention, this is the number of scalar multiplications.\footnote{This assumes a naive implementation of the operation, i.e., nested loops over the dimensions.}
-In our example, the contraction cost is $2 \times 2 \times 4 \times 2 = 32$, i.e., we simply multiply the dimension sizes.
+注意，我们还标出了各个维度的大小，也就是说，$A$ 是一个 $2\times 2\times 4$ 张量，而 $B$ 是一个 $4 \times 2$ 矩阵。
+现在，\emph{缩并成本}定义为缩并过程中执行的 FLOPS 数；按照惯例，这里指的是标量乘法次数。\footnote{这假设该操作采用朴素实现，也就是在各个维度上使用嵌套循环。}
+在这个例子中，缩并成本为 $2 \times 2 \times 4 \times 2 = 32$，也就是说，只需把维度大小相乘。
 
-The previous example was rather small.
-However, tensor networks in the wild tend to have hundreds of tensors.
-Naturally, these also need to be contracted to a single tensor.
-Now comes the interesting part: The \emph{order} in which we perform these contraction can have a tremendous impact on the execution time.
-To get an intuition for this, consider an extended example of a 3-tensor diagram:
+前面的例子相当小。
+然而，实际中的张量网络往往包含数百个张量。
+自然，这些张量也需要缩并成单个张量。
+有趣的地方来了：执行这些缩并的\emph{顺序}可能会对运行时间产生巨大影响。
+为了对此建立直觉，考虑一个扩展的 3-张量图例子：
 \begin{center}
     \resizebox{0.35\textwidth}{!}{
         \input{figures/contraction_2}
     }
 \end{center}
-If we were to contract $A$ with $B$ first (and the resulting tensor with $C$), we would have a cost of $2^2 \times 4\times 2 + 2^3 \times 1 \times 2^2 = 32 + 32 = 64$ multiplications, whereas performing the contraction between $B$ and $C$ at the beginning would result in $2^3 \times 1 \times 2^2 + 2^2 \times 4 \times 2^3 = 32 + 128 = 160$ multiplications in total. Hence, the first order is much better.
+如果先缩并 $A$ 和 $B$（再把所得张量与 $C$ 缩并），成本为 $2^2 \times 4\times 2 + 2^3 \times 1 \times 2^2 = 32 + 32 = 64$ 次乘法；而如果一开始就缩并 $B$ 和 $C$，总共会得到 $2^3 \times 1 \times 2^2 + 2^2 \times 4 \times 2^3 = 32 + 128 = 160$ 次乘法。因此，第一种顺序要好得多。
 
-It is thus natural to ask: \emph{Can we always find the optimal contraction order?}
+于是很自然地会问：\emph{我们总能找到最优缩并顺序吗？}
 
-\subsection{Algorithms}
+\subsection{算法}
 
-We summarize well-known results and frameworks to find good contraction orders.
+下面总结一些用于寻找良好缩并顺序的知名结果和框架。
 
-\subsubsection{Optimal Algorithms}
+\subsubsection{最优算法}
 
-Indeed, finding the \emph{optimal} contraction order for arbitrary tensor network shapes is pretty hard; better said, NP-hard~\cite{ordering_np_hard}. There is a well-known exact algorithm running in $O(3^n)$-time~\cite{ordering_exact_algo}, where $n$ is the number of tensors in the network. This finds the optimal contraction order with respect to the total contraction cost. If one is interested in minimizing the size of the largest intermediate tensor, i.e., to optimize for the memory used during the execution, this can be done faster in $O(2^n n^3)$-time~\cite{dpconv}. 
+事实上，为任意形状的张量网络寻找\emph{最优}缩并顺序相当困难；更准确地说，它是 NP-hard 的~\cite{ordering_np_hard}。有一个著名的精确算法运行时间为 $O(3^n)$~\cite{ordering_exact_algo}，其中 $n$ 是网络中的张量数量。它能找到相对于总缩并成本而言的最优缩并顺序。如果关心的是最小化最大中间张量的大小，也就是优化执行过程中的内存使用，那么可以在 $O(2^n n^3)$ 时间内更快地完成~\cite{dpconv}。
 
-The good news is that for some restricted shapes of tensor networks, there are indeed efficient algorithms. A classic example is that dynamic programming solution for the matrix-chain problem~\cite{cormen}, which is just \emph{our} problem, but only for matrices. The naive algorithm runs in $O(n^3)$-time, but can be implemented in $O(n^2)$-time~\cite{mc_yao} (or even in $O(n \log n)$-time~\cite{mc_nlogn_1, mc_nlogn_2}). Another shape for which polynomial-time algorithms exist is that of \emph{tree} tensor networks~\cite{ttn_size, ttn_cost}.
+好消息是，对于某些受限形状的张量网络，确实存在高效算法。经典例子是矩阵链问题的动态规划解法~\cite{cormen}，它其实就是\emph{我们}的问题，只不过只针对矩阵。朴素算法运行时间为 $O(n^3)$，但可以实现为 $O(n^2)$ 时间~\cite{mc_yao}（甚至可以做到 $O(n \log n)$ 时间~\cite{mc_nlogn_1, mc_nlogn_2}）。另一类存在多项式时间算法的形状是\emph{树}张量网络~\cite{ttn_size, ttn_cost}。
 
-Another prominent way to optimize contraction orders is via the tree decomposition of the \emph{line graph} representation of the tensor network~\cite{markov_shi, dudek_tree_decomp, roman_tree_decomp}. In particular, this results in a contraction order with a maximal intermediate tensor rank equal to the treewidth of the tree decomposition. Loosely speaking, treewidth measures how tree-like a graph is. This does not directly solve our problem since finding the tree decompositions of the smallest treewidth is itself hard~\cite{treewidth_approx}. Two well-known frameworks to find good tree decompositions are \texttt{QuickBB}~\cite{quick_bb} and \texttt{FlowCutter}~\cite{flow_cutter_1, flow_cutter_2}.
+另一种重要的缩并顺序优化方法，是对张量网络的\emph{线图}表示做树分解~\cite{markov_shi, dudek_tree_decomp, roman_tree_decomp}。特别地，这会得到一个缩并顺序，其最大中间张量秩等于该树分解的树宽。粗略地说，树宽衡量一个图有多像树。这并不能直接解决我们的问题，因为寻找最小树宽的树分解本身也是困难的~\cite{treewidth_approx}。两个用于寻找良好树分解的知名框架是 \texttt{QuickBB}~\cite{quick_bb} 和 \texttt{FlowCutter}~\cite{flow_cutter_1, flow_cutter_2}。
 
-\subsubsection{Best-Effort Algorithms}
+\subsubsection{尽力而为算法}
 
 % TODO: @Thomas, refer to the `einsum` section.
-However, once we want to contract \emph{arbitrary} network shapes, the best we can do is to fall back on heuristics or approximations. Two well-known frameworks are \texttt{opt\_einsum}~\cite{opt_einsum} and \texttt{cotengra}~\cite{cotengra}, which aim to optimize the contraction order (also referred to as ``contraction path'') of arbitrary einsums: For tensor networks where the optimal algorithm would be too slow, \texttt{opt\_einsum} applies an ad-hoc greedy algorithm, while \texttt{cotengra} uses hypergraph partitioning~\cite{kahypar}, along with a Bayesian optimization approach, which has been later refined~\cite{jena_tn_cut}. Other algorithms adopted from database query optimization are implemented in \texttt{netzwerk}~\cite{ttn_cost}. Another option is to \emph{learn} the best contraction orders, e.g., using reinforcement learning~\cite{meirom_tn_rl}.
+然而，一旦我们想缩并\emph{任意}网络形状，能做的最好事情就是退回到启发式或近似方法。两个知名框架是 \texttt{opt\_einsum}~\cite{opt_einsum} 和 \texttt{cotengra}~\cite{cotengra}，它们旨在优化任意 einsum 的缩并顺序（也称为“缩并路径”（contraction path））：对于最优算法会过慢的张量网络，\texttt{opt\_einsum} 会应用一种特设的贪心算法，而 \texttt{cotengra} 使用超图划分~\cite{kahypar}，并结合一种后来得到改进的 Bayesian 优化方法~\cite{jena_tn_cut}。其他借鉴数据库查询优化的算法则在 \texttt{netzwerk}~\cite{ttn_cost} 中实现。另一种选择是\emph{学习}最佳缩并顺序，例如使用强化学习~\cite{meirom_tn_rl}。
 
-Naturally, the above heuristics do not come with an optimality guarantee. There exists a $(1+\eps)$-approximation $O^*(2^n / \eps)$-time algorithm that minimizes the sum of the intermediate tensor sizes~\cite{dpconv}.
+自然，上述启发式方法并不带有最优性保证。存在一个运行时间为 $O^*(2^n / \eps)$ 的 $(1+\eps)$-近似算法，可以最小化中间张量大小之和~\cite{dpconv}。
 
-Worth mentioning is the SQL-view of einsum~\cite{einsum_as_sql}: It allows to perform the entire tensor network contraction on any database engine. Indeed, for some einsum classes, running the contractions on state-of-the-art database engines, such as Hyper~\cite{hyper}, can be much faster than using the de-facto \texttt{numpy}-array implementation.
+值得一提的是 einsum 的 SQL 视角~\cite{einsum_as_sql}：它允许在任意数据库引擎上执行整个张量网络缩并。事实上，对于某些 einsum 类，在 Hyper~\cite{hyper} 等先进数据库引擎上运行缩并，可能比使用事实标准的 \texttt{numpy} 数组实现快得多。
