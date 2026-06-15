@@ -2,7 +2,7 @@
 
 ## Current
 
-- Translate enabled book files, currently `paper/chapters/statistics.tex`
+- Translate remaining disabled book chapters, starting with `paper/chapters/simple_derivatives.tex`
 
 ## Done
 
@@ -14,12 +14,13 @@
 - Fixed current build blockers: missing `\boxtimes` support and invalid TikZ `\foreach` variable names in `statistics.tex`.
 - Translated enabled `paper/chapters/intro.tex`.
 - Translated enabled `paper/chapters/appendix.tex`.
+- Translated enabled `paper/chapters/statistics.tex`.
 
 ## Next
 
-- Translate enabled `paper/chapters/statistics.tex`.
-- Translate remaining `paper/chapters/*.tex` in chapter order.
+- Translate remaining `paper/chapters/*.tex` in chapter order, starting with `simple_derivatives.tex`.
 - Update README reader-facing introduction after enabled chapters.
+- Rebuild PDF after each large chapter or build-affecting change.
 
 ## Open
 

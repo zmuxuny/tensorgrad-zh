@@ -1,11 +1,11 @@
 
-\chapter{Statistics and Probability}
-\section{Definition of Moments}
-Let $x\in\mathbb R^{n}$ is a random variable.
-We write $m = E[x]\in\mathbb R^n$ for the expectation and
-$M=\mathrm{Var}[x] = E[(x-m)(x-m)^T]$ for the covariance (when these quantities are defined.)
+\chapter{统计与概率}
+\section{矩的定义}
+设 $x\in\mathbb R^{n}$ 是一个随机变量。
+我们记 $m = E[x]\in\mathbb R^n$ 为期望，
+记 $M=\mathrm{Var}[x] = E[(x-m)(x-m)^T]$ 为协方差（当这些量有定义时）。
 
-In tensor diagrams, we will use square brackets:
+在张量图中，我们会使用方括号：
 \[
    \vecmatvec{1em}{}{}{m}
    =
@@ -14,7 +14,7 @@ In tensor diagrams, we will use square brackets:
    \node [right=1em of n0] (n1) {$x]$};
    \draw (n0) -- (n1);
 \end{tikzpicture}}
-\quad\text{and}\quad
+\quad\text{和}\quad
    \vecmatvec{1em}{}{M}{}
    =
 \mathbin{\begin{tikzpicture}[baseline=(n0.base), inner sep=1pt]
@@ -26,9 +26,9 @@ In tensor diagrams, we will use square brackets:
    \draw (n2) -- (n3);
 \end{tikzpicture}}
 \]
-We will use the circled minus, $\ominus$, to distinguish the operation from contraction edges.
+我们使用带圈减号 $\ominus$，以便把这个操作和缩并边区分开来。
 
-We can also define the third and fourth centralized moment tensors
+我们还可以定义三阶和四阶中心矩张量：
 \[
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$M_3$};
@@ -43,7 +43,7 @@ We can also define the third and fourth centralized moment tensors
       \vecmatvec{1em}{(x\ominus m)}{}{} \\
       \vecmatvec{1em}{(x\ominus m)}{}{}
    \end{bmatrix}
-\quad\text{and}\quad
+\quad\text{和}\quad
    \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
       \node (T) {$M_4$};
       \draw (T) -- ++(.5,.5);
@@ -114,14 +114,14 @@ We can also define the third and fourth centralized moment tensors
 % \]
 
 
-\subsection{Expectation of Linear Combinations}
-General principle: The ``linearity of expectation'' lets you pull out all parts of the graph not involving $X$.
+\subsection{线性组合的期望}
+一般原则：“期望的线性性”允许你把图中所有不涉及 $X$ 的部分提出去。
 \[
    \vcenter{\hbox{
       \import{figures/}{linearityOfExpectation.pdf_tex}
    }}
 \]
-where $M_3$ is the expectation\footnote{FIXME: This is different from the notation just introduced above.}
+其中 $M_3$ 是期望\footnote{FIXME: 这与刚刚引入的记号不同。}
 \(
 \left[
 \begin{tikzpicture}[baseline=(T.base), inner sep=1pt]
@@ -146,10 +146,10 @@ where $M_3$ is the expectation\footnote{FIXME: This is different from the notati
 \end{tikzpicture}
 \right]
 \),
-which is an order-9 tensor with no dependence on the constants $A$, $B$, $C$ and $D$.
-In practice you would want to name the edges to keep track of what gets multiplied with what.
+它是一个 9 阶张量，并且不依赖常量 $A$、$B$、$C$ 和 $D$。
+在实践中，你会想给边命名，以便追踪哪些对象与哪些对象相乘。
 
-We can even use linearity of expectation to push the expectation inside an infinite sum of tensors, as in the following moment generating function, which relates all the $M_k$ tensors:
+我们甚至可以利用期望的线性性，把期望推进到张量的无穷和内部；如下矩生成函数把所有 $M_k$ 张量联系起来：
 \begin{align*}
    \mathrm{E}(\mathrm{e}^{\langle x\ominus m, t\rangle})
    &= \sum_{k=0}^\infty \frac{1}{k!} \mathrm{E}[\langle x\ominus m, t\rangle^k]
@@ -191,8 +191,8 @@ We can even use linearity of expectation to push the expectation inside an infin
    \dots
 \end{align*}
 
-\subsection{Linear Forms}
-The Matrix Cookbook gives the following simple expectation:
+\subsection{线性形式}
+《Matrix Cookbook》给出了下面这个简单的期望：
 \begin{walign}
    \tag{312}
    \E[AXB+C] &= A \E[X] B + C
@@ -208,8 +208,8 @@ The Matrix Cookbook gives the following simple expectation:
    \end{matrix}
 \end{walign}
 
-\subsection{Quadratic Forms}
-We often prefer to write expectations in terms of the simple centered moments, which we can do by pulling out the mean:
+\subsection{二次型}
+我们常常更愿意用简单的中心矩来写期望；这可以通过提出均值来做到：
 \renewcommand*{\arraystretch}{1}
 \[
    \begin{bmatrix}
@@ -238,7 +238,7 @@ We often prefer to write expectations in terms of the simple centered moments, w
       m -
    \end{array}
 \]
-This makes it easy to handle the quadratic forms from the Matrix Cookbook:
+这样就很容易处理《Matrix Cookbook》中的二次型：
 \begin{walign}
    \tag{313}
    \mathrm{Var}[Ax] &= A \mathrm{Var}[x] A^T
@@ -329,7 +329,7 @@ This makes it easy to handle the quadratic forms from the Matrix Cookbook:
 
 
 
-\subsection{Cubic Forms}
+\subsection{三次型}
 
 \[
 \begin{tikzpicture}[scale=1.3,
@@ -349,8 +349,8 @@ This makes it easy to handle the quadratic forms from the Matrix Cookbook:
 \]
 
 
-When $x$ is a stochastic vector with mean vector $m$,
-it can be convenient to expand the raw third moment in terms of the central moments:
+当 $x$ 是均值向量为 $m$ 的随机向量时，
+把原始三阶矩展开为中心矩会很方便：
 
 \renewcommand*{\arraystretch}{1}
 \begin{align*}
@@ -428,16 +428,16 @@ it can be convenient to expand the raw third moment in terms of the central mome
    m -
 \end{array}
 \end{align*}
-TODO: The edges from the $m,M$ term needs to be symmetrized.
+TODO: $m,M$ 项中的边需要做对称化。
 
 
-But this is still a bit of a mess.
-See also below on Cumulants.
+但这仍然有些杂乱。
+另见下面关于累积量的内容。
 
 
 
-Assume \(\mathbf{x}\) to be a stochastic vector with independent coordinates, mean \(m\),
-covariance \(M\) and central moments \(v_3 = \mathbb{E}[(\mathbf{x} - m)^3]\). Then (see [7])
+假设 \(\mathbf{x}\) 是一个坐标相互独立的随机向量，均值为 \(m\)，
+协方差为 \(M\)，中心矩为 \(v_3 = \mathbb{E}[(\mathbf{x} - m)^3]\)。那么（见 [7]）
 \begin{align*}
 &\mathbb{E}[(A\mathbf{x} + a)(B\mathbf{x} + b)^T (C\mathbf{x} + c)]
 \\&\quad=
@@ -461,10 +461,10 @@ AMB^T (Cm + c)
 \end{align*}
 
 
-\section{Cumulants}
+\section{累积量}
 
-Given a random vector $x\in\mathbb R^d$,
-its $n$th Cumulant Tensor, $K_n\in\R^{d,\ldots,d}$ is defined by
+给定随机向量 $x\in\mathbb R^d$，
+它的 $n$ 阶累积量张量 $K_n\in\R^{d,\ldots,d}$ 定义为
 \[
    \log \mathrm{E}(\mathrm{e}^{\langle t, x\rangle})
    = \sum_{n=1}^\infty \frac{1}{n!} \langle K_n, t^{\otimes n}\rangle
@@ -491,14 +491,14 @@ its $n$th Cumulant Tensor, $K_n\in\R^{d,\ldots,d}$ is defined by
    +
    \dots
 \]
-The first couple of cumulants are similar to the central moments:
+前几个累积量类似于中心矩：
 \[
    K_1 = m
-   \quad\text{and}\quad
+   \quad\text{和}\quad
    K_2 = M
-   \quad\text{and}\quad
+   \quad\text{和}\quad
    K_3 = M_3
-   \quad\text{and}\quad
+   \quad\text{和}\quad
    K_4 = M_4
    - \begin{tikzpicture}[baseline=-.8em, inner sep=.5pt]
       \node (M1) {\scriptsize $M_2$};
@@ -526,13 +526,13 @@ The first couple of cumulants are similar to the central moments:
    \end{tikzpicture}
    .
 \]
-They have the nice property (which is easy to see from the definition) that they are additive for independent random variables:
+它们有一个很好的性质（从定义很容易看出）：对于独立随机变量，累积量是可加的：
 $
    K_n(x + y) = K_n(x) + K_n(y).
 $
-This generalizes the standard property that the variance of the sum of independent random variables is the sum of the variances.
+这推广了一个标准性质：独立随机变量之和的方差等于方差之和。
 
-We can write the expectations of $x^{\otimes n}$ in terms of the cumulants:
+我们可以用累积量来写出 $x^{\otimes n}$ 的期望：
 
 \[
    \begin{bmatrix}
@@ -561,12 +561,12 @@ We can write the expectations of $x^{\otimes n}$ in terms of the cumulants:
    \end{tikzpicture}
    .
 \]
-In general the sum is over all the partitions of the set $\{1,\ldots,n\}$.
+一般而言，求和遍历集合 $\{1,\ldots,n\}$ 的所有划分。
 
-If the entries of $x$ are \emph{independent}, the off-diagonals of the cumulant tensors $K_1, K_2, \dots$ are zero.
-This means 
+如果 $x$ 的各个分量\emph{相互独立}，累积量张量 $K_1, K_2, \dots$ 的非对角项为零。
+这意味着可以按如下方式写出：
 %
-Assume each $x_i$ has cumulants $\kappa_1, \kappa_2, \kappa_3, \kappa_4 \in \R$, then
+假设每个 $x_i$ 的累积量为 $\kappa_1, \kappa_2, \kappa_3, \kappa_4 \in \R$，则
 \[
 \begin{bmatrix}
    \begin{tikzpicture}[
@@ -623,7 +623,7 @@ Assume each $x_i$ has cumulants $\kappa_1, \kappa_2, \kappa_3, \kappa_4 \in \R$,
 \end{tikzpicture}
 \]
 
-Note in particular, that if the mean, $\kappa_1$, is zero, only four terms survive.
+特别注意，如果均值 $\kappa_1$ 为零，就只剩下四项。
 %\(
 %\begin{tikzpicture}[
 %   baseline=4em,
@@ -646,7 +646,7 @@ Note in particular, that if the mean, $\kappa_1$, is zero, only four terms survi
 %\end{tikzpicture}
 %.
 %\)
-For $n=5$ there are 52 partitions in total, but only 11 survive if $\kappa_1=0$:
+当 $n=5$ 时，总共有 52 个划分；但若 $\kappa_1=0$，只有 11 项保留下来：
 \[
    \begin{tikzpicture}[
      every node/.style={inner sep=1pt, circle, draw, fill=white, thin},
@@ -676,8 +676,8 @@ For $n=5$ there are 52 partitions in total, but only 11 survive if $\kappa_1=0$:
    \end{tikzpicture}
 \]
 
-If $x$ is Gaussian, all cumulants of order $3$ and higher are zero.
-For $n=6$ there are 203 partitions in total, but only 15 terms\footnote{This is why $\E[g^6]=15$ for $g\sim N(0,1)$.} for $E[x^{\otimes 6}]$:
+如果 $x$ 是高斯变量，所有 3 阶及更高阶累积量都为零。
+当 $n=6$ 时，总共有 203 个划分，但 $E[x^{\otimes 6}]$ 只剩 15 项\footnote{这就是为什么对 $g\sim N(0,1)$ 有 $\E[g^6]=15$。}：
 \[
    \begin{tikzpicture}[
      every node/.style={inner sep=1pt, circle, draw, fill=white, thin},
@@ -712,14 +712,14 @@ For $n=6$ there are 203 partitions in total, but only 15 terms\footnote{This is 
      .
 \]
 
-\subsection{Quartic Forms}
+\subsection{四次型}
 
 
 
 
 
-We can use this to compute $\mathrm{Var}[x^T A x]$.
-We assume $A$ is symmetric:
+我们可以用它来计算 $\mathrm{Var}[x^T A x]$。
+假设 $A$ 是对称的：
 \begin{walign}
    \mathrm{Var}[x^T A x]
    &=
@@ -825,7 +825,7 @@ We assume $A$ is symmetric:
        \draw (A1.east) to[out=-45,in=-135] (bullet) to[out=-45,in=-135] (A2.west);
    \end{tikzpicture}
 \end{walign}
-The Matrix Cookbook lists this as
+《Matrix Cookbook》把它列为
 \[
    \mathrm{Var}[x^T A x]
    =
@@ -834,13 +834,13 @@ The Matrix Cookbook lists this as
    + 4\mu_3 c^T Aa
    + (\mu_4 - 3\mu_2^2)a^T a \tag{319}
 \]
-where $c = \mu_1$ is the mean of $x$,
-and $a = \mathrm{diag}(A)$ is the diagonal of $A$,
-and $\mu_4 = \kappa_4 + 3\kappa_2^2$ is the fourth central moment.
+其中 $c = \mu_1$ 是 $x$ 的均值，
+$a = \mathrm{diag}(A)$ 是 $A$ 的对角线，
+而 $\mu_4 = \kappa_4 + 3\kappa_2^2$ 是四阶中心矩。
 
 
-\section{Weighted Scalar Variable}
-Let $y=w^T x$, and let $m=E[y]$, then
+\section{加权标量变量}
+令 $y=w^T x$，并令 $m=E[y]$，则
 \begin{align*}
    \tag{321}
    \E[y] &= m = w^T \mu
@@ -876,36 +876,36 @@ Let $y=w^T x$, and let $m=E[y]$, then
 \end{align*}
 
 
-For $x\sim N(0,1)$, we have the inequality:
+对于 $x\sim N(0,1)$，有不等式：
 \[
    \E[y^n]^{1/n} \leq \sqrt{2/\pi}\, \|w\|_2.
 \]
 
 
-\section{Gaussian Moments}
+\section{高斯矩}
 
-For a Gaussian vector $x \sim \mathcal{N}(m,M)$:
-- All odd centered moments vanish: $M_3 = 0$, etc.
-- Even moments can be computed via Isserlis' theorem.
+对于高斯向量 $x \sim \mathcal{N}(m,M)$：
+- 所有奇数阶中心矩都为零：$M_3 = 0$，等等。
+- 偶数阶矩可以通过 Isserlis 定理计算。
 
-For instance:
+例如：
 \[
 \mathbb{E}[(x \ominus m)^{\otimes 4}]
 =
 M \otimes M + M \otimes M + \dots
 \]
-(summing over the different pairings of indices).
+（对指标的不同配对求和）。
 
-\subsection{Gaussian Integration by Parts}
-If $X$ is a tensor with Gaussian entries, zero mean, and some covariance,
+\subsection{高斯分部积分}
+如果 $X$ 是一个由高斯条目组成、均值为零且带有某个协方差的张量，
 % General principle for Gaussian expectations.
-Stein's lemma gives the following very general equation, for any differentiable function $f$:
+那么对任意可微函数 $f$，Stein 引理给出下面这个非常一般的方程：
 \[
    \vcenter{\hbox{
       \import{figures/}{steins.pdf_tex}
    }}
 \]
-Combined with the tensor chain rule from chapter~\ref{chapter:functions}, this can be a very powerful way to evaluate many hard expectations.
+结合第~\ref{chapter:functions} 章中的张量链式法则，这可以成为求解许多困难期望的强大方法。
 
 
 
@@ -917,28 +917,28 @@ E[x^TAx] &= \text{Tr}(A\Sigma) + m^TAm \tag{378} \\
 E[(x - m')^TA(x - m')] &= (m - m')^TA(m - m') + \text{Tr}(A\Sigma) \tag{380}
 \end{align*}
 
-If $\Sigma = \sigma^2I$ and $A$ is symmetric, then
+如果 $\Sigma = \sigma^2I$ 且 $A$ 对称，则
 
 \begin{align*}
 \text{Var}(x^TAx) = 2\sigma^4\text{Tr}(A^2) + 4\sigma^2m^TA^2m \tag{381}
 \end{align*}
 
-Assume $x \sim \mathcal{N}(0, \sigma^2I)$ and $A$ and $B$ to be symmetric, then
+假设 $x \sim \mathcal{N}(0, \sigma^2I)$，且 $A$ 和 $B$ 对称，则
 
 \begin{align*}
 \text{Cov}(x^TAx, x^TBx) = 2\sigma^4\text{Tr}(AB) \tag{382}
 \end{align*}
 
-\subsection{Cubic forms}
+\subsection{三次型}
 
-Assume $x$ to be a stochastic vector with independent coordinates, mean $m$ and covariance $M$
+假设 $x$ 是一个坐标相互独立的随机向量，均值为 $m$，协方差为 $M$：
 
 \begin{align*}
 E[xb^Txx^T] &= mb^T(M + mm^T) + (M + mm^T)bm^T \tag{383} \\
 &\quad +b^Tm(M - mm^T)
 \end{align*}
 
-\subsection{Mean of Quartic Forms}
+\subsection{四次型的均值}
 
 \begin{align*}
 E[xx^Txx^T] &= 2(\Sigma + mm^T)^2 + m^Tm(\Sigma - mm^T) \\
@@ -971,20 +971,20 @@ E[a^Txb^Txc^Txd^Tx] &= (a^T(\Sigma + mm^T)b)(c^T(\Sigma + mm^T)d) \\
 &\quad +[\text{Tr}(A\Sigma B^T) + (Am + a)^T(Bm + b)][\text{Tr}(C\Sigma D^T) + (Cm + c)^T(Dm + d)]
 \end{align*}
 
-See [7].
+见 [7]。
 
 
-\subsection{Mixture of Gaussians}
-For a mixture of Gaussians:
+\subsection{高斯混合}
+对于高斯混合：
 \[
    x \sim \sum_k \pi_k \mathcal{N}(m_k, M_k),
 \]
-the moments are weighted sums:
+矩是加权和：
 \[
    E[x] = \sum_k \pi_k m_k, \quad
    \mathrm{Var}[x] = \sum_k \pi_k (M_k + m_k m_k^T) - \left(\sum_k \pi_k m_k\right)\left(\sum_k \pi_k m_k\right)^T.
 \]
-Higher moments similarly combine via linearity.
+高阶矩也类似地通过线性性组合。
 
 
 \begin{align*}
@@ -992,29 +992,29 @@ E[x] &= \sum_k \rho_k m_k \tag{384} \\[1em]
 \text{Cov}(x) &= \sum_k\sum_{k'} \rho_k\rho_{k'} (\Sigma_k + m_km_k^T - m_km_{k'}^T) \tag{385}
 \end{align*}
 
-\subsection{Derivatives}
-Derivatives of moments with respect to $m$ or $M$ can be found by differentiating under the integral sign, and using Stein's lemma for Gaussian cases.
+\subsection{导数}
+矩关于 $m$ 或 $M$ 的导数可以通过在积分号下求导得到；在高斯情形下，还可以使用 Stein 引理。
 
-\section{Free Probability for Vectors and Tensors}
+\section{向量与张量的自由概率}
 
-Free probability theory provides a non-commutative analogue of classical probability. We'll start with the simplest case—vectors with scalar entries—then progress to matrices and finally to higher-rank tensors.
+自由概率理论提供了经典概率的非交换类比。我们将从最简单的情形开始，即条目为标量的向量；然后推进到矩阵，最后到更高阶张量。
 
-\subsection{Free Cumulants for Vectors}
+\subsection{向量的自由累积量}
 
-For a random vector $x \in \mathbb{R}^n$ with scalar entries, free cumulants are defined analogously to classical cumulants but using only non-crossing partitions.
+对于条目为标量的随机向量 $x \in \mathbb{R}^n$，自由累积量的定义类似于经典累积量，但只使用非交叉划分。
 
-\subsubsection{R-Transform for Vectors}
+\subsubsection{向量的 R-变换}
 
-The R-transform (free cumulant generating function) is:
+R-变换（自由累积量生成函数）为：
 \[
    R_x(z) = \sum_{n=1}^{\infty} \kappa_n^{\text{free}} z^{n-1}
 \]
 
-This is the free analogue of the classical cumulant generating function $\log \mathrm{E}[e^{tz}] = \sum_{n=1}^{\infty} \frac{\kappa_n}{n!} t^n$.
+这是经典累积量生成函数 $\log \mathrm{E}[e^{tz}] = \sum_{n=1}^{\infty} \frac{\kappa_n}{n!} t^n$ 的自由概率对应物。
 
-\subsubsection{Moment-Cumulant Relations}
+\subsubsection{矩-累积量关系}
 
-If each $x_i$ has free cumulants $\kappa_1^{\text{free}}, \kappa_2^{\text{free}}, \kappa_3^{\text{free}}, \kappa_4^{\text{free}} \in \mathbb{R}$, then:
+如果每个 $x_i$ 的自由累积量为 $\kappa_1^{\text{free}}, \kappa_2^{\text{free}}, \kappa_3^{\text{free}}, \kappa_4^{\text{free}} \in \mathbb{R}$，则：
 \[
 \begin{bmatrix}
    \begin{tikzpicture}[
@@ -1069,42 +1069,42 @@ If each $x_i$ has free cumulants $\kappa_1^{\text{free}}, \kappa_2^{\text{free}}
   \drawPartitionAtAngle{(0,-4*ygap)}{4}{$+(\kappa_1^{\text{free}})^4$}{{{1},{2},{3},{4}}}
 
   % Legend
-  \node[label, red] at (4,-5*ygap) {\small Red = crossing partitions (excluded in free probability)};
+	  \node[label, red] at (4,-5*ygap) {\small 红色 = 交叉划分（在自由概率中排除）};
 
 \end{tikzpicture}
 \]
 
-Compare with classical: 15 partitions $\to$ 9 non-crossing partitions!
+与经典情形相比：15 个划分 $\to$ 9 个非交叉划分！
 
-\subsection{Free Cumulants for Matrices}
+\subsection{矩阵的自由累积量}
 
-For random matrices, we must consider traces of products. Unlike scalars, matrix products don't commute, adding complexity.
+对于随机矩阵，我们必须考虑乘积的迹。与标量不同，矩阵乘积不满足交换律，这增加了复杂性。
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.8]
    % Classical vs Free
-   \node at (-2,1) {\small Classical cumulants:};
-   \node at (-2,-1.5) {\small Free cumulants:};
+   \node at (-2,1) {\small 经典累积量：};
+   \node at (-2,-1.5) {\small 自由累积量：};
    
    % Classical - all 5 partitions
    \node at (0,1) {$\mathrm{E}[X^3] =$};
    \node at (2,1) {$\kappa_3$};
    \node at (3,1) {$+ 3\kappa_2\kappa_1$};
    \node at (5,1) {$+ \kappa_1^3$};
-   \node at (7,1) {\small (5 partitions)};
+   \node at (7,1) {\small （5 个划分）};
    
    % Free - only 2 non-crossing
    \node at (0,-1.5) {$\mathrm{E}[\mathrm{Tr}(X^3)] =$};
    \node at (2.5,-1.5) {$\kappa_3^{\text{free}}$};
    \node at (4.5,-1.5) {$+ \kappa_1^{\text{free}}\kappa_2^{\text{free}}$};
-   \node at (7,-1.5) {\small (2 NC partitions)};
+   \node at (7,-1.5) {\small （2 个 NC 划分）};
 \end{tikzpicture}
 \]
 
-The partition $(1,3),(2)$ is crossing and thus excluded in free probability:
+划分 $(1,3),(2)$ 是交叉的，因此在自由概率中被排除：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.7]
    % Non-crossing partitions
-   \node at (-2,0) {\small Non-crossing:};
+   \node at (-2,0) {\small 非交叉：};
    \foreach \i in {1,2,3} {
       \node[circle, draw] (A\i) at (120-120*\i:1) {\tiny \i};
    }
@@ -1121,7 +1121,7 @@ The partition $(1,3),(2)$ is crossing and thus excluded in free probability:
    
    % Crossing partition
    \begin{scope}[xshift=8cm]
-      \node at (-2,0) {\small Crossing:};
+      \node at (-2,0) {\small 交叉：};
       \foreach \i in {1,2,3} {
          \node[circle, draw] (C\i) at (120-120*\i:1) {\tiny \i};
       }
@@ -1132,63 +1132,63 @@ The partition $(1,3),(2)$ is crossing and thus excluded in free probability:
 \end{tikzpicture}
 \]
 
-Key insight: For matrices, we have ONE edge to match between elements. For higher-rank tensors, we have MULTIPLE edges (colors) to match.
+关键洞见：对矩阵来说，元素之间只有一条边需要匹配。对更高阶张量来说，则有多条边（颜色）需要匹配。
 
-\subsection{Tensor Free Cumulants}
+\subsection{张量自由累积量}
 
-For rank-$D$ tensors, the free cumulant theory becomes richer due to colored non-crossing partitions.
+对于 $D$ 阶张量，由于有彩色非交叉划分，自由累积量理论变得更加丰富。
 
-\subsubsection{Colored Non-Crossing Partitions for Tensors}
+\subsubsection{张量的彩色非交叉划分}
 
-For rank-$D$ tensors, each element has $D$ "legs" or indices. A valid pairing must:
+对于 $D$ 阶张量，每个元素有 $D$ 条“腿”或指标。一个有效配对必须：
 \begin{itemize}
-\item Be non-crossing when elements are arranged on a circle
-\item Match ALL $D$ colors (one per leg) between paired elements
+\item 当元素排在圆周上时是非交叉的
+\item 在被配对元素之间匹配全部 $D$ 种颜色（每条腿一种）
 \end{itemize}
 
-This dramatically reduces the number of valid partitions. For rank-3 tensors:
+这会大幅减少有效划分的数量。对于 3 阶张量：
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.8]
    % Matrix case
-   \node at (-3,0) {\small Matrices:};
+   \node at (-3,0) {\small 矩阵：};
    \node[draw, thick] (M1) at (-1,0) {$X$};
    \node[draw, thick] (M2) at (0.5,0) {$X$};
-   \draw[thick] (M1.east) -- (M2.west) node[midway, above] {\tiny 1 edge};
+   \draw[thick] (M1.east) -- (M2.west) node[midway, above] {\tiny 1 条边};
    
    % Tensor case
-   \node at (2,0) {\small Rank-3 tensors:};
+   \node at (2,0) {\small 3 阶张量：};
    \node[draw, thick] (T1) at (4,0) {$T$};
    \node[draw, thick] (T2) at (5.5,0) {$T$};
    % Must connect all 3 colors
    \draw[cyan, thick] (T1.north east) to[bend left=20] (T2.north west);
    \draw[magenta, thick] (T1.east) -- (T2.west);
    \draw[yellow, thick] (T1.south east) to[bend right=20] (T2.south west);
-   \node at (7.5,0) {\tiny 3 edges};
+   \node at (7.5,0) {\tiny 3 条边};
 \end{tikzpicture}
 \]
 
-\subsubsection{Invariant Traces for Tensors}
+\subsubsection{张量的不变量迹}
 
-Unlike matrices, higher-rank tensors have no single canonical trace. Instead, every way of contracting tensors to produce a scalar defines a different invariant:
+不同于矩阵，高阶张量没有唯一的标准迹。相反，每一种把张量缩并成标量的方式都会定义一个不同的不变量：
 
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
-Matrices ($D=2$) & Tensors ($D>2$) \\
+矩阵（$D=2$） & 张量（$D>2$） \\
 \hline
-Unique invariant $\mathrm{Tr}(X_1 \cdots X_n)$ & Family of invariants $\mathrm{Tr}_{\pi}(T_1,\ldots,T_n)$ \\
-& indexed by colored permutations $\pi \in \mathfrak{S}_{Dn}$ \\
+唯一不变量 $\mathrm{Tr}(X_1 \cdots X_n)$ & 不变量族 $\mathrm{Tr}_{\pi}(T_1,\ldots,T_n)$ \\
+& 由彩色置换 $\pi \in \mathfrak{S}_{Dn}$ 索引 \\
 \hline
 \end{tabular}
 \end{center}
 
-\textbf{Definition of $\mathrm{Tr}_{\pi}$:} Given tensors $T_1,\ldots,T_n$ each with $D$ legs (colored 1 through $D$), a colored permutation $\pi = (\pi^{(1)},\ldots,\pi^{(D)}) \in \mathfrak{S}_n^D$ specifies which legs connect:
+\textbf{$\mathrm{Tr}_{\pi}$ 的定义：} 给定张量 $T_1,\ldots,T_n$，每个张量都有 $D$ 条腿（颜色从 1 到 $D$），彩色置换 $\pi = (\pi^{(1)},\ldots,\pi^{(D)}) \in \mathfrak{S}_n^D$ 指定哪些腿相连：
 
 \[
 \mathrm{Tr}_{\pi}(T_1,\ldots,T_n) = 
 \begin{tikzpicture}[baseline=0, scale=0.8]
    % Example for n=3, D=3
-   \node at (-2,0) {\small Example:};
+   \node at (-2,0) {\small 例子：};
    % Three tensors
    \node[draw, thick] (T1) at (90:1.2) {$T_1$};
    \node[draw, thick] (T2) at (210:1.2) {$T_2$};
@@ -1211,23 +1211,23 @@ Unique invariant $\mathrm{Tr}(X_1 \cdots X_n)$ & Family of invariants $\mathrm{T
 \end{tikzpicture}
 \]
 
-For matrices ($D=2$), only the cyclic permutation gives a non-zero trace, recovering the usual $\mathrm{Tr}(X_1 X_2 \cdots X_n)$.
+对于矩阵（$D=2$），只有循环置换会给出非零迹，从而恢复通常的 $\mathrm{Tr}(X_1 X_2 \cdots X_n)$。
 
-\textbf{Normalization:} To obtain finite limits as $N \to \infty$, we normalize by $N^{-(D-1)n}$:
+\textbf{归一化：} 为了在 $N \to \infty$ 时得到有限极限，我们用 $N^{-(D-1)n}$ 归一化：
 \[
    \frac{1}{N^{(D-1)n}} \mathrm{Tr}_{\pi}(T_1,\ldots,T_n) \xrightarrow{N \to \infty} \text{finite}
 \]
 
-\subsubsection{Moment-Cumulant Formula}
+\subsubsection{矩-累积量公式}
 
-The tensor moment-cumulant relation involves ALL invariant traces:
+张量的矩-累积量关系涉及\emph{所有}不变量迹：
 \[
    \boxed{\left( \mathrm{E}[\mathrm{Tr}_{\pi}(T_{i_1},\ldots,T_{i_n})] \right)_{\pi \in \mathrm{NC}_D(n)} = \sum_{\sigma \in \mathrm{NC}_D(n)} \kappa_{\sigma}^{(\mathrm{t})} \cdot (\text{pattern matching})}
 \]
 
-The moments form a vector indexed by colored non-crossing permutations, and tensor freeness acts on this entire family.
+这些矩形成一个由彩色非交叉置换索引的向量，而张量自由性作用在整个族上。
 
-Example for $n=2$: The second moment decomposes as
+$n=2$ 的例子：二阶矩分解为
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.8]
    % Moment
@@ -1250,35 +1250,35 @@ Example for $n=2$: The second moment decomposes as
 \end{tikzpicture}
 \]
 
-For Gaussian tensors, $\kappa_1^{(\mathrm{t})} = 0$ and $\kappa_n^{(\mathrm{t})} = 0$ for $n > 2$, so:
+对于高斯张量，$\kappa_1^{(\mathrm{t})} = 0$ 且当 $n > 2$ 时 $\kappa_n^{(\mathrm{t})} = 0$，因此：
 \[
    \mathrm{E}[\mathrm{Tr}(T_1 T_2)] = \kappa_2^{(\mathrm{t})} \delta_{i_1,i_2} = \delta_{i_1,i_2}
 \]
 
-\subsection{Tensor Wick Theorem}
+\subsection{张量 Wick 定理}
 
-For Gaussian tensors, a fundamental result analogous to Wick's theorem holds:
+对于高斯张量，一个类似 Wick 定理的基本结果成立：
 
-Tensor Wick Factorization:
-Let $(T_i)_{i \in I}$ be i.i.d. standard Gaussian $D$-leg tensors of size $N$. As $N \to \infty$:
+张量 Wick 分解：
+设 $(T_i)_{i \in I}$ 是大小为 $N$ 的独立同分布标准高斯 $D$ 腿张量。当 $N \to \infty$ 时：
 \[
    \mathrm{E}[T_{i_1} \cdots T_{i_{2k}}] = \sum_{\pi \in \mathrm{NC}_D(2k)} \prod_{(j,j') \in \pi} \delta_{i_j, i_{j'}} + O(N^{-1})
 \]
 
-This shows that Gaussian tensors are asymptotically tensor-free, with all cumulants beyond the second vanishing.
+这说明高斯张量渐近张量自由，并且二阶以上的所有累积量都消失。
 
-For four rank-3 tensors, the valid colored non-crossing pairings are severely restricted:
+对于四个 3 阶张量，有效的彩色非交叉配对受到严格限制：
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.7]
    % First row - tensors arranged in circle
-   \node at (-2,2) {\small Tensors arranged on circle:};
+   \node at (-2,2) {\small 张量排在圆周上：};
    \foreach \i in {1,2,3,4} {
       \node[draw, thick] (T\i) at (90-90*\i:1.5) {$T_{\i}$};
    }
    
    % Second row - valid pairing (1,2)(3,4)
    \begin{scope}[yshift=-4cm]
-      \node at (-2,0) {\small $(1,2)(3,4)$ valid:};
+      \node at (-2,0) {\small $(1,2)(3,4)$ 有效：};
       \foreach \i in {1,2,3,4} {
          \node[draw, thick] (S\i) at (90-90*\i:1.5) {$T_{\i}$};
       }
@@ -1294,30 +1294,30 @@ For four rank-3 tensors, the valid colored non-crossing pairings are severely re
    
    % Third row - invalid pairing (1,3)(2,4)
    \begin{scope}[yshift=-8cm]
-      \node at (-2,0) {\small $(1,3)(2,4)$ invalid:};
+      \node at (-2,0) {\small $(1,3)(2,4)$ 无效：};
       \foreach \i in {1,2,3,4} {
          \node[draw, thick] (R\i) at (90-90*\i:1.5) {$T_{\i}$};
       }
       % Try to connect 1-3
       \draw[cyan, thick] (R1) to[bend left=45] (R3);
       % This forces 2-4 to cross!
-      \draw[red, thick, dashed] (R2) to (R4) node[midway, above] {\tiny crosses!};
+      \draw[red, thick, dashed] (R2) to (R4) node[midway, above] {\tiny 交叉！};
    \end{scope}
    
-   \node at (5,-4) {\small Only $(1,2)(3,4)$ and $(1,4)(2,3)$ are non-crossing};
+   \node at (5,-4) {\small 只有 $(1,2)(3,4)$ 和 $(1,4)(2,3)$ 是非交叉的};
 \end{tikzpicture}
 \]
 
-\subsection{Additivity Under Tensor Freeness}
+\subsection{张量自由性下的可加性}
 
-If two tensor algebras $\mathcal{A}_1$ and $\mathcal{A}_2$ are tensor-free, then for $A \in \mathcal{A}_1$ and $B \in \mathcal{A}_2$:
+如果两个张量代数 $\mathcal{A}_1$ 和 $\mathcal{A}_2$ 是张量自由的，那么对 $A \in \mathcal{A}_1$ 和 $B \in \mathcal{A}_2$ 有：
 \[
    \kappa_n^{(\mathrm{t})}(A + B) = \kappa_n^{(\mathrm{t})}(A) + \kappa_n^{(\mathrm{t})}(B)
 \]
 
-This generalizes the additivity of classical cumulants for independent variables.
+这推广了独立变量的经典累积量可加性。
 
-Graphically, for the second cumulant (covariance):
+图示地看，对于二阶累积量（协方差）：
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.8]
    % Left side
@@ -1345,29 +1345,29 @@ Graphically, for the second cumulant (covariance):
 \end{tikzpicture}
 \]
 
-\subsubsection{Vanishing Mixed Cumulants}
+\subsubsection{混合累积量消失}
 
-For matrices, if $A$ and $B$ are free and one has zero trace, then $\kappa_n^{\text{free}}(AB\cdots) = 0$ for alternating products. For tensors, the analogous property depends on the contraction pattern.
+对于矩阵，如果 $A$ 和 $B$ 自由且其中一个迹为零，那么交替乘积满足 $\kappa_n^{\text{free}}(AB\cdots) = 0$。对于张量，类似性质取决于缩并模式。
 
-\textbf{Definition:} A tensor $T$ has \emph{zero first cumulant} if $\kappa_1^{(\mathrm{t})}(T) = 0$, which means $\mathrm{E}[\mathrm{Tr}_{\pi}(T)] = 0$ for ALL colored permutations $\pi \in \mathfrak{S}_D$.
+\textbf{定义：} 如果 $\kappa_1^{(\mathrm{t})}(T) = 0$，则称张量 $T$ 具有\emph{零一阶累积量}；这意味着对所有彩色置换 $\pi \in \mathfrak{S}_D$，都有 $\mathrm{E}[\mathrm{Tr}_{\pi}(T)] = 0$。
 
-\textbf{Definition:} An \emph{alternating contraction pattern} is a way of connecting tensors in a sequence $A_1, B_1, A_2, B_2, \ldots$ where:
+\textbf{定义：} \emph{交替缩并模式}是连接序列 $A_1, B_1, A_2, B_2, \ldots$ 中张量的一种方式，其中：
 \begin{itemize}
-\item Tensors appear in alternating order (A, B, A, B, ...)
-\item Each tensor's legs are contracted with neighbors (no tensor left isolated)
-\item The contraction respects the tensor structure
+\item 张量以交替顺序出现（A, B, A, B, ...）
+\item 每个张量的腿都与相邻张量缩并（没有张量孤立）
+\item 缩并尊重张量结构
 \end{itemize}
 
-\textbf{Theorem:} If $A$ and $B$ are tensor-free and $\kappa_1^{(\mathrm{t})}(A) = 0$, then any alternating contraction has vanishing cumulants:
+\textbf{定理：} 如果 $A$ 和 $B$ 张量自由，且 $\kappa_1^{(\mathrm{t})}(A) = 0$，那么任意交替缩并的累积量都为零：
 \[
    \kappa_n^{(\mathrm{t})}(A \otimes_C B \otimes_C A \otimes_C \cdots) = 0 \quad \text{for } n \geq 2
 \]
 
-Examples of alternating contractions for rank-3 tensors:
+3 阶张量的交替缩并示例：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.7]
    % Example 1: Linear chain
-   \node at (-2,1) {\small Linear chain:};
+   \node at (-2,1) {\small 线性链：};
    \node[draw, thick] (A1) at (0,1) {$A$};
    \node[draw, thick] (B1) at (1.5,1) {$B$};
    \node[draw, thick] (A2) at (3,1) {$A$};
@@ -1381,7 +1381,7 @@ Examples of alternating contractions for rank-3 tensors:
    \draw[yellow, thick] (B1) -- ++(0,-.3);
    
    % Example 2: Cyclic
-   \node at (-2,-1) {\small Cyclic:};
+   \node at (-2,-1) {\small 循环：};
    \node[draw, thick] (A3) at (0,-1) {$A$};
    \node[draw, thick] (B3) at (1.5,-1) {$B$};
    \node[draw, thick] (A4) at (3,-1) {$A$};
@@ -1393,7 +1393,7 @@ Examples of alternating contractions for rank-3 tensors:
    \draw[cyan, thick] (B4) to[bend right=30] (A3);
    
    % Example 3: Tree-like
-   \node at (-2,-3) {\small Tree:};
+   \node at (-2,-3) {\small 树：};
    \node[draw, thick] (A5) at (1.5,-3) {$A$};
    \node[draw, thick] (B5) at (0,-3.7) {$B$};
    \node[draw, thick] (B6) at (3,-3.7) {$B$};
@@ -1404,15 +1404,15 @@ Examples of alternating contractions for rank-3 tensors:
 \end{tikzpicture}
 \]
 
-If $\kappa_1^{(\mathrm{t})}(A) = 0$, all these contractions yield $\kappa_n^{(\mathrm{t})} = 0$.
+如果 $\kappa_1^{(\mathrm{t})}(A) = 0$，这些缩并都会给出 $\kappa_n^{(\mathrm{t})} = 0$。
 
-This holds because any non-crossing partition must include a singleton block containing $A$, but $\kappa_1^{(\mathrm{t})}(A) = 0$.
+这是因为任意非交叉划分都必须包含一个含有 $A$ 的单元素块，但 $\kappa_1^{(\mathrm{t})}(A) = 0$。
 
-The key difference from matrices: for tensors, we must specify the contraction pattern, as different contractions can yield different results even for the same tensors.
+与矩阵的关键差异在于：对于张量，我们必须指定缩并模式，因为即使是同一批张量，不同缩并也可能产生不同结果。
 
-\subsection{Spectrum of Tensor Wishart Matrices}
+\subsection{张量 Wishart 矩阵的谱}
 
-Consider a rank-3 tensor $T \in \mathbb{C}^{N \times N \times N}$ with i.i.d. Gaussian entries $\mathcal{N}_{\mathbb{C}}(0, N^{-3})$. The Wishart-type matrix $W = TT^{\dagger}$ (contracting one index) has limiting spectral distribution:
+考虑一个 3 阶张量 $T \in \mathbb{C}^{N \times N \times N}$，其条目为独立同分布的高斯变量 $\mathcal{N}_{\mathbb{C}}(0, N^{-3})$。Wishart 型矩阵 $W = TT^{\dagger}$（缩并一个指标）具有如下极限谱分布：
 
 \[
 \begin{tikzpicture}[baseline=-.5em, scale=0.8]
@@ -1430,24 +1430,24 @@ Consider a rank-3 tensor $T \in \mathbb{C}^{N \times N \times N}$ with i.i.d. Ga
 \end{tikzpicture}
 \]
 
-where $\boxtimes$ denotes free multiplicative convolution and $\mathrm{MP}(c)$ is the Marchenko-Pastur distribution.
+其中 $\boxtimes$ 表示自由乘性卷积，$\mathrm{MP}(c)$ 是 Marchenko-Pastur 分布。
 
-\subsection{Tensor Networks and Free Probability}
+\subsection{张量网络与自由概率}
 
-Free probability provides powerful tools for analyzing tensor network states, which arise naturally in quantum many-body physics and machine learning.
+自由概率为分析张量网络态提供了强大工具，而张量网络态自然出现在量子多体物理和机器学习中。
 
-\subsubsection{Graph Amalgamation}
+\subsubsection{图 amalgamation（合并）}
 
-For a tensor network on a graph $G = (V, E)$ with random Gaussian tensors at each vertex, the boundary density matrix factorizes according to the graph's structure:
+对于图 $G = (V, E)$ 上的张量网络，如果每个顶点放置随机高斯张量，则边界密度矩阵会按照图结构分解：
 
-Graph Amalgamation:
-Let $\rho_b$ be the boundary density matrix of a random tensor network. Then:
+图 amalgamation（合并）：
+令 $\rho_b$ 为随机张量网络的边界密度矩阵。则：
 \[
    \rho_b = \underset{\gamma \in \mathcal{C}_{\min}}{*_{\mathcal{B}}} \rho_{\gamma}
 \]
-where $*_{\mathcal{B}}$ denotes free multiplicative convolution with amalgamation over the boundary algebra, and $\mathcal{C}_{\min}$ are the minimal cuts of $G$.
+其中 $*_{\mathcal{B}}$ 表示在边界代数上的带 amalgamation（合并）的自由乘性卷积，$\mathcal{C}_{\min}$ 是 $G$ 的最小割。
 
-For example, a simple two-vertex network:
+例如，一个简单的双顶点网络：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.8]
    % Two tensors
@@ -1461,24 +1461,24 @@ For example, a simple two-vertex network:
    \draw[thick] (T2) -- ++(1,.5) node[right] {$\partial_3$};
    \draw[thick] (T2) -- ++(1,-.5) node[right] {$\partial_4$};
    % Minimal cut
-   \draw[dashed, red, thick] (1.5,-1) -- (1.5,1) node[above] {cut};
+   \draw[dashed, red, thick] (1.5,-1) -- (1.5,1) node[above] {割};
 \end{tikzpicture}
 \]
 
-\subsubsection{Entanglement and Max-Flow}
+\subsubsection{纠缠与最大流}
 
-The Rényi entropy of tensor network states connects to max-flow problems on the network graph:
+张量网络态的 Rényi 熵与网络图上的最大流问题相联系：
 
 \[
    S_q(\rho_b) = \frac{1}{1-q} \log \left[ \max_f \prod_{e \in E} w_e^{f(e)} \right] + o(1)
 \]
 
-where $f$ ranges over integer flows and $w_e$ are edge weights. For maximally entangled links ($w_e = 1$), this recovers the Ryu-Takayanagi formula from holography.
+其中 $f$ 遍历整数流，$w_e$ 是边权。对于最大纠缠连接（$w_e = 1$），这会恢复全息理论中的 Ryu-Takayanagi 公式。
 
-\subsection{Examples with Higher-Order Tensors}
+\subsection{高阶张量示例}
 
-\subsubsection{Star Network}
-Consider a star graph with one central vertex of degree $D = 4$:
+\subsubsection{星形网络}
+考虑一个星形图，其中有一个度数为 $D = 4$ 的中心顶点：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.8]
    \node[circle, draw, thick] (C) at (0,0) {$T$};
@@ -1489,14 +1489,14 @@ Consider a star graph with one central vertex of degree $D = 4$:
 \end{tikzpicture}
 \]
 
-The boundary density matrix is $\rho_b = W_1 W_2 W_3 W_4$ with independent Wishart factors. By tensor freeness:
+边界密度矩阵是 $\rho_b = W_1 W_2 W_3 W_4$，其中包含独立的 Wishart 因子。由张量自由性可得：
 \[
    \mu_{\rho} = \mathrm{MP}(1)^{\boxtimes 4}, \quad R_{\rho}(w) = \frac{4w}{1-w}
 \]
 
-The von Neumann entropy per site equals $\log 4 - 3/4$.
+每个格点的 von Neumann 熵等于 $\log 4 - 3/4$。
 
-The free product decomposition:
+自由积分解为：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.7]
    % Central tensor with 4 Wishart factors
@@ -1511,8 +1511,8 @@ The free product decomposition:
 \end{tikzpicture}
 \]
 
-\subsubsection{Ladder Networks}
-For a $2 \times L$ ladder with periodic vertical boundary:
+\subsubsection{梯形网络}
+对于带周期竖直边界的 $2 \times L$ 梯形网络：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.6]
    \foreach \i in {0,1,2} {
@@ -1529,9 +1529,9 @@ For a $2 \times L$ ladder with periodic vertical boundary:
 \end{tikzpicture}
 \]
 
-The entanglement entropy scales as $S_2 = \lceil L/2 \rceil \log N + O(1)$, exhibiting area law scaling.
+纠缠熵按 $S_2 = \lceil L/2 \rceil \log N + O(1)$ 缩放，表现出面积律缩放。
 
-The max-flow through the network:
+穿过网络的最大流为：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.5]
    % Flow network representation
@@ -1561,16 +1561,16 @@ The max-flow through the network:
 \end{tikzpicture}
 \]
 
-\subsection{D-ary Catalan Numbers}
+\subsection{$D$ 元 Catalan 数}
 
-The colored Möbius function for $\mathrm{NC}_D(n)$ involves $D$-ary Catalan numbers:
+$\mathrm{NC}_D(n)$ 的彩色 Möbius 函数涉及 $D$ 元 Catalan 数：
 \[
    \mu_{\mathrm{col}}(0_n, 1_n) = (-1)^{n-1} C_{n-1}^{(D)}
 \]
 
-where $C_n^{(D)} = \frac{1}{(D-1)n+1}\binom{Dn}{n}$ are the Fuss-Catalan numbers.
+其中 $C_n^{(D)} = \frac{1}{(D-1)n+1}\binom{Dn}{n}$ 是 Fuss-Catalan 数。
 
-The growth of $D$-ary Catalan numbers:
+$D$ 元 Catalan 数的增长：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.6]
    % Table of values
@@ -1588,29 +1588,29 @@ The growth of $D$-ary Catalan numbers:
 \end{tikzpicture}
 \]
 
-For $D = 2$ (matrices), we recover the standard Catalan numbers. For $D = 3$ (rank-3 tensors):
+当 $D = 2$（矩阵）时，我们恢复标准 Catalan 数。对于 $D = 3$（3 阶张量）：
 \[
    C_0^{(3)} = 1, \quad C_1^{(3)} = 1, \quad C_2^{(3)} = 3, \quad C_3^{(3)} = 12, \quad C_4^{(3)} = 55, \ldots
 \]
 
-\subsection{Melonic Diagrams}
+\subsection{Melon 型图}
 
-Melonic diagrams are the leading-order Feynman diagrams in the $1/N$ expansion of tensor models. They are named after their melon-like shape and have a special topological structure.
+Melonic diagrams（melon 型图）是张量模型的 $1/N$ 展开中的主导阶 Feynman 图。它们得名于类似 melon 的形状，并具有特殊的拓扑结构。
 
-\subsubsection{Definition and Structure}
+\subsubsection{定义与结构}
 
-For rank-$D$ tensors, a melonic diagram is one that can be drawn on a 2-sphere where:
+对于 $D$ 阶张量，melon 型图是可以画在 2-球面上的图，并满足：
 \begin{itemize}
-\item Each face is colored by one of $D$ colors
-\item The diagram has a tree-like structure of "melons"
-\item No color appears twice around any vertex
+\item 每个面由 $D$ 种颜色之一着色
+\item 图具有由“melons”组成的树状结构
+\item 任意顶点周围没有颜色重复出现
 \end{itemize}
 
-The basic melon (2-point function) for rank-3 tensors:
+3 阶张量的基本 melon（2 点函数）：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.8]
    % Basic melon
-   \node at (-2,0) {Basic melon:};
+   \node at (-2,0) {基本 melon：};
    \node[circle, draw, thick] (L) at (0,0) {$T$};
    \node[circle, draw, thick] (R) at (2,0) {$\bar{T}$};
    % Three colored edges forming the melon
@@ -1620,13 +1620,13 @@ The basic melon (2-point function) for rank-3 tensors:
 \end{tikzpicture}
 \]
 
-\subsubsection{Higher-Order Melonic Diagrams}
+\subsubsection{高阶 melon 型图}
 
-The 4-point melonic diagram (order $N^{-1}$):
+4 点 melon 型图（$N^{-1}$ 阶）：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.7]
    % 4-point melon
-   \node at (-3,0) {4-point:};
+   \node at (-3,0) {4 点：};
    \node[circle, draw, fill=white] (T1) at (0,1) {$T$};
    \node[circle, draw, fill=white] (T2) at (2,1) {$\bar{T}$};
    \node[circle, draw, fill=white] (T3) at (2,-1) {$T$};
@@ -1644,7 +1644,7 @@ The 4-point melonic diagram (order $N^{-1}$):
 \quad
 \begin{tikzpicture}[baseline=0, scale=0.7]
    % Tree structure
-   \node at (-2,0) {Tree of melons:};
+   \node at (-2,0) {melon 树：};
    \node[circle, draw, fill=white] (C) at (0,0) {};
    \foreach \i in {0,120,240} {
       \node[circle, draw, fill=white] (T\i) at (\i:1.5) {};
@@ -1668,23 +1668,23 @@ The 4-point melonic diagram (order $N^{-1}$):
 \end{tikzpicture}
 \]
 
-\subsubsection{Counting Melonic Diagrams}
+\subsubsection{计数 melon 型图}
 
-The number of melonic diagrams grows much slower than general diagrams:
+melon 型图的数量增长远慢于一般图：
 
-Melonic Dominance:
-At order $n$ in the $1/N$ expansion:
+Melonic 主导性：
+在 $1/N$ 展开的 $n$ 阶：
 \begin{itemize}
-\item General diagrams: $\sim (D!)^n n!$ 
-\item Melonic diagrams: $\sim D^n \cdot C_{n-1}$ (Catalan numbers)
+\item 一般图：$\sim (D!)^n n!$ 
+\item Melon 型图：$\sim D^n \cdot C_{n-1}$（Catalan 数）
 \end{itemize}
 
-For rank-3 tensors at order 3:
+对于 3 阶张量的 3 阶项：
 \[
 \begin{tikzpicture}[baseline=0, scale=0.6]
    % First melonic diagram
    \begin{scope}[xshift=0cm]
-      \node at (0,1.5) {\small Type 1};
+      \node at (0,1.5) {\small 类型 1};
       \foreach \i in {0,1,2,3} {
          \node[circle, draw, fill=white, inner sep=1pt] (T\i) at (90*\i:1) {};
       }
@@ -1697,7 +1697,7 @@ For rank-3 tensors at order 3:
    
    % Second melonic diagram
    \begin{scope}[xshift=5cm]
-      \node at (0,1.5) {\small Type 2};
+      \node at (0,1.5) {\small 类型 2};
       \node[circle, draw, fill=white, inner sep=1pt] (C) at (0,0) {};
       \foreach \i in {0,120,240} {
          \node[circle, draw, fill=white, inner sep=1pt] (T\i) at (\i:0.8) {};
@@ -1713,7 +1713,7 @@ For rank-3 tensors at order 3:
    
    % Third melonic diagram  
    \begin{scope}[xshift=10cm]
-      \node at (0,1.5) {\small Type 3};
+      \node at (0,1.5) {\small 类型 3};
       \node[circle, draw, fill=white, inner sep=1pt] (L) at (-1,0) {};
       \node[circle, draw, fill=white, inner sep=1pt] (C) at (0,0) {};
       \node[circle, draw, fill=white, inner sep=1pt] (R) at (1,0) {};
@@ -1728,18 +1728,18 @@ For rank-3 tensors at order 3:
 \end{tikzpicture}
 \]
 
-\subsubsection{Melonic Universality}
+\subsubsection{Melonic 普适性}
 
-In the large-$N$ limit, tensor models are dominated by melonic diagrams, leading to:
+在大 $N$ 极限下，张量模型由 melon 型图主导，这会导致：
 \begin{itemize}
-\item Spectral dimension $d_s = 2$ (like branched polymers)
-\item Critical exponents independent of $D$ for $D \geq 3$
-\item Connection to the Sachdev-Ye-Kitaev (SYK) model in physics
+\item 谱维数 $d_s = 2$（类似分支聚合物）
+\item 当 $D \geq 3$ 时，临界指数与 $D$ 无关
+\item 与物理中的 Sachdev-Ye-Kitaev (SYK) 模型相联系
 \end{itemize}
 
-This universality is why melonic diagrams are central to understanding tensor models and their continuum limits.
+这种普适性正是 melon 型图在理解张量模型及其连续极限时处于核心地位的原因。
 
-\section{Exercises}
+\section{练习}
 \begin{exercise}
    \begin{align*}
    \mathrm{E}[(A\mathbf{x} + a)(A\mathbf{x} + a)^T (A\mathbf{x} + a)] = 
@@ -1756,34 +1756,34 @@ This universality is why melonic diagrams are central to understanding tensor mo
    \end{align*}
 \end{exercise}
 \begin{exercise}
-   Find more identities in the \href{http://www.ee.ic.ac.uk/hp/staff/dmb/matrix/expect.html}{Matrix Reference Manual} and try to prove them.
-   Also try to verify your derivations using tensorgrad.
+   在 \href{http://www.ee.ic.ac.uk/hp/staff/dmb/matrix/expect.html}{Matrix Reference Manual} 中寻找更多恒等式，并尝试证明它们。
+   也请尝试用 Tensorgrad 验证你的推导。
 \end{exercise}
 \begin{exercise}
-   For rank-3 tensors $T_1, T_2, T_3$ with colored legs (cyan, magenta, yellow), draw all valid 3-colored non-crossing partitions of $\{1,2,3\}$. 
-   How many are there compared to the total number of set partitions?
+   对于带彩色腿（cyan、magenta、yellow）的 3 阶张量 $T_1, T_2, T_3$，画出 $\{1,2,3\}$ 的所有有效 3 色非交叉划分。
+   与集合划分总数相比，它们有多少个？
 \end{exercise}
 \begin{exercise}
-   Consider a rank-4 Gaussian tensor $T \in \mathbb{R}^{N \times N \times N \times N}$. 
-   Compute $\mathrm{E}[\mathrm{Tr}_{12}(T) \mathrm{Tr}_{34}(T)]$ where $\mathrm{Tr}_{ij}$ denotes contraction of indices $i$ and $j$.
-   Use the tensor Wick theorem and draw the corresponding colored diagrams.
+   考虑一个 4 阶高斯张量 $T \in \mathbb{R}^{N \times N \times N \times N}$。
+   计算 $\mathrm{E}[\mathrm{Tr}_{12}(T) \mathrm{Tr}_{34}(T)]$，其中 $\mathrm{Tr}_{ij}$ 表示对指标 $i$ 和 $j$ 的缩并。
+   使用张量 Wick 定理，并画出相应的彩色图。
 \end{exercise}
 \begin{exercise}
-   For a tensor network on a binary tree of depth $d$, show that the boundary entanglement entropy scales as $S \sim d \log N$.
-   Use the graph amalgamation theorem and identify the minimal cuts.
+   对于深度为 $d$ 的二叉树上的张量网络，证明边界纠缠熵按 $S \sim d \log N$ 缩放。
+   使用图 amalgamation 定理，并找出最小割。
 \end{exercise}
 \begin{exercise}
-   Verify that for rank-$D$ tensors, the number of melonic diagrams at order $n$ grows as $D^n n!$.
-   Draw all melonic diagrams for $D=3, n=3$.
+   验证对于 $D$ 阶张量，$n$ 阶 melon 型图的数量按 $D^n n!$ 增长。
+   画出 $D=3, n=3$ 时的所有 melon 型图。
 \end{exercise}
 \begin{exercise}
-   Show that the $D$-ary Catalan numbers satisfy the recursion:
+   证明 $D$ 元 Catalan 数满足递推式：
    \[
       C_n^{(D)} = \sum_{k=0}^{n-1} C_k^{(D)} C_{n-1-k}^{(D-1)}
    \]
-   What does this imply about the structure of colored non-crossing partitions?
+   这对彩色非交叉划分的结构意味着什么？
 \end{exercise}
 \begin{exercise}
-   For two tensor-free rank-3 tensors $A$ and $B$, compute the third tensor cumulant $\kappa_3^{(\mathrm{t})}(A+B)$.
-   Verify the additivity property using colored partition diagrams.
+   对于两个张量自由的 3 阶张量 $A$ 和 $B$，计算第三张量累积量 $\kappa_3^{(\mathrm{t})}(A+B)$。
+   使用彩色划分图验证可加性性质。
 \end{exercise}
